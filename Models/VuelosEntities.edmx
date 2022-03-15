@@ -10,8 +10,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="nvarchar" MaxLength="12" Nullable="false" />
-          <Property Name="Nombre" Type="nvarchar" MaxLength="75" Nullable="false" />
-          <Property Name="Logo" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Nombre" Type="varchar(max)" Nullable="false" />
+          <Property Name="Logo" Type="varchar(max)" Nullable="false" />
           <Property Name="ConsecutivoId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="AerolineaPais">
@@ -44,15 +44,24 @@
           <Property Name="VueloId" Type="nvarchar" MaxLength="8" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Conscutivo2">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="Prefijo" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Numero" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Estado" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
         <EntityType Name="Consecutivo">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Prefijo" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="RangoInicial" Type="int" />
-          <Property Name="RangoFinal" Type="int" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+          <Property Name="Prefijo" Type="varchar(max)" Nullable="false" />
+          <Property Name="RangoInicial" Type="varchar(max)" Nullable="false" />
+          <Property Name="RangoFinal" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Error">
           <Key>
@@ -328,6 +337,7 @@
           <EntitySet Name="AerolineaPais" EntityType="Self.AerolineaPais" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bitacora" EntityType="Self.Bitacora" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Compra" EntityType="Self.Compra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Conscutivo2" EntityType="Self.Conscutivo2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Consecutivo" EntityType="Self.Consecutivo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Error" EntityType="Self.Error" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Origen" EntityType="Self.Origen" Schema="dbo" store:Type="Tables" />
@@ -408,8 +418,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Logo" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ConsecutivoId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AerolineaPais" Relationship="Self.FK__Aerolinea__Aerol__4D94879B" FromRole="Aerolinea" ToRole="AerolineaPais" />
           <NavigationProperty Name="Consecutivo" Relationship="Self.FK__Aerolinea__Conse__44FF419A" FromRole="Aerolinea" ToRole="Consecutivo" />
@@ -455,10 +465,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Prefijo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RangoInicial" Type="Int32" />
-          <Property Name="RangoFinal" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Prefijo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RangoInicial" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RangoFinal" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Aerolineas" Relationship="Self.FK__Aerolinea__Conse__44FF419A" FromRole="Consecutivo" ToRole="Aerolinea" />
           <NavigationProperty Name="Compras" Relationship="Self.FK__Compra__Consecut__46E78A0C" FromRole="Consecutivo" ToRole="Compra" />
           <NavigationProperty Name="Origens" Relationship="Self.FK__Origen__Consecut__440B1D61" FromRole="Consecutivo" ToRole="Origen" />
@@ -751,7 +761,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="VVuelosEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="VVuelosEntity" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Aerolineas" EntityType="Self.Aerolinea" />
           <EntitySet Name="AerolineaPais" EntityType="Self.AerolineaPai" />
           <EntitySet Name="Bitacoras" EntityType="Self.Bitacora" />
@@ -826,13 +836,23 @@
             <End Role="Vuelo" EntitySet="Vueloes" />
             <End Role="Reserva" EntitySet="Reservas" />
           </AssociationSet>
+          <EntitySet Name="Conscutivo2" EntityType="VVuelosModel.Conscutivo2" />
         </EntityContainer>
+        <EntityType Name="Conscutivo2">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="Prefijo" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Numero" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="VVuelosModelStoreContainer" CdmEntityContainer="VVuelosEntities">
+        <EntityContainerMapping StorageEntityContainer="VVuelosModelStoreContainer" CdmEntityContainer="VVuelosEntity">
           <EntitySetMapping Name="Aerolineas">
             <EntityTypeMapping TypeName="VVuelosModel.Aerolinea">
               <MappingFragment StoreEntitySet="Aerolinea">
@@ -982,6 +1002,16 @@
                 <ScalarProperty Name="AerolineaId" ColumnName="AerolineaId" />
                 <ScalarProperty Name="OrigenId" ColumnName="OrigenId" />
                 <ScalarProperty Name="PuertaAeropuertoId" ColumnName="PuertaAeropuertoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Conscutivo2">
+            <EntityTypeMapping TypeName="VVuelosModel.Conscutivo2">
+              <MappingFragment StoreEntitySet="Conscutivo2">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Prefijo" ColumnName="Prefijo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

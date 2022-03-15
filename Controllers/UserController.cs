@@ -13,7 +13,7 @@ namespace ProyectoFinalSW.Controllers
 {
     public class UserController : ApiController
     {
-        private VVuelosEntities db = new VVuelosEntities();
+        private VVuelosEntity db = new VVuelosEntity();
 
         // GET: api/User
         public List<User> GetUsers()

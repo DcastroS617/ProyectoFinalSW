@@ -164,8 +164,12 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AerolineaController.cs" />
+    <Compile Include="Controllers\ConsController.cs" />
+    <Compile Include="Controllers\ConsecutivoController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Data\CryptEntities\AerolineaCrypt.cs" />
+    <Compile Include="Data\CryptEntities\ConsecutivoCrypt.cs" />
     <Compile Include="Data\CryptEntities\UserCrypt.cs" />
     <Compile Include="Data\Crypt\Constants.cs" />
     <Compile Include="Data\Crypt\Crypt.cs" />
@@ -173,61 +177,64 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Aerolinea.cs">
-      <DependentUpon>VVuelosModel.tt</DependentUpon>
+      <DependentUpon>VuelosEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AerolineaPai.cs">
-      <DependentUpon>VVuelosModel.tt</DependentUpon>
+      <DependentUpon>VuelosEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Bitacora.cs">
-      <DependentUpon>VVuelosModel.tt</DependentUpon>
+      <DependentUpon>VuelosEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Compra.cs">
-      <DependentUpon>VVuelosModel.tt</DependentUpon>
+      <DependentUpon>VuelosEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Conscutivo2.cs">
+      <DependentUpon>VuelosEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Consecutivo.cs">
-      <DependentUpon>VVuelosModel.tt</DependentUpon>
+      <DependentUpon>VuelosEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Error.cs">
-      <DependentUpon>VVuelosModel.tt</DependentUpon>
+      <DependentUpon>VuelosEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Origen.cs">
-      <DependentUpon>VVuelosModel.tt</DependentUpon>
+      <DependentUpon>VuelosEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PuertaActiva.cs">
-      <DependentUpon>VVuelosModel.tt</DependentUpon>
+      <DependentUpon>VuelosEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PuertaAeropuerto.cs">
-      <DependentUpon>VVuelosModel.tt</DependentUpon>
+      <DependentUpon>VuelosEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Reserva.cs">
-      <DependentUpon>VVuelosModel.tt</DependentUpon>
+      <DependentUpon>VuelosEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>VVuelosModel.tt</DependentUpon>
+      <DependentUpon>VuelosEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tarjeta.cs">
-      <DependentUpon>VVuelosModel.tt</DependentUpon>
+      <DependentUpon>VuelosEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>VVuelosModel.tt</DependentUpon>
+      <DependentUpon>VuelosEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Vuelo.cs">
-      <DependentUpon>VVuelosModel.tt</DependentUpon>
+      <DependentUpon>VuelosEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VVuelosModel.Context.cs">
+    <Compile Include="Models\VuelosEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VVuelosModel.Context.tt</DependentUpon>
+      <DependentUpon>VuelosEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VVuelosModel.cs">
+    <Compile Include="Models\VuelosEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VVuelosModel.tt</DependentUpon>
+      <DependentUpon>VuelosEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VVuelosModel.Designer.cs">
+    <Compile Include="Models\VuelosEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VVuelosModel.edmx</DependentUpon>
+      <DependentUpon>VuelosEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -240,15 +247,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\VVuelosModel.Context.tt">
+    <Content Include="Models\VuelosEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>VVuelosModel.Context.cs</LastGenOutput>
-      <DependentUpon>VVuelosModel.edmx</DependentUpon>
+      <DependentUpon>VuelosEntities.edmx</DependentUpon>
+      <LastGenOutput>VuelosEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\VVuelosModel.tt">
+    <Content Include="Models\VuelosEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>VVuelosModel.edmx</DependentUpon>
-      <LastGenOutput>VVuelosModel.cs</LastGenOutput>
+      <DependentUpon>VuelosEntities.edmx</DependentUpon>
+      <LastGenOutput>VuelosEntities.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -271,12 +278,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\VVuelosModel.edmx">
+    <EntityDeploy Include="Models\VuelosEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>VVuelosModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>VuelosEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\VVuelosModel.edmx.diagram">
-      <DependentUpon>VVuelosModel.edmx</DependentUpon>
+    <Content Include="Models\VuelosEntities.edmx.diagram">
+      <DependentUpon>VuelosEntities.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -303,6 +310,16 @@
     <Content Include="Views\Aerolinea\Details.cshtml" />
     <Content Include="Views\Aerolinea\Edit.cshtml" />
     <Content Include="Views\Aerolinea\Index.cshtml" />
+    <Content Include="Views\Consecutivo\Create.cshtml" />
+    <Content Include="Views\Consecutivo\Delete.cshtml" />
+    <Content Include="Views\Consecutivo\Details.cshtml" />
+    <Content Include="Views\Consecutivo\Edit.cshtml" />
+    <Content Include="Views\Consecutivo\Index.cshtml" />
+    <Content Include="Views\Cons\Create.cshtml" />
+    <Content Include="Views\Cons\Delete.cshtml" />
+    <Content Include="Views\Cons\Details.cshtml" />
+    <Content Include="Views\Cons\Edit.cshtml" />
+    <Content Include="Views\Cons\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -27,8 +27,8 @@ namespace ProyectoFinalSW.Models
         public int Id { get; set; }
         public string Descripcion { get; set; }
         public string Prefijo { get; set; }
-        public Nullable<int> RangoInicial { get; set; }
-        public Nullable<int> RangoFinal { get; set; }
+        public string RangoInicial { get; set; }
+        public string RangoFinal { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Aerolinea> Aerolineas { get; set; }

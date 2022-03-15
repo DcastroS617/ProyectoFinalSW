@@ -1,123 +1,81 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Web;
-using System.Web.Mvc;
+using System.Web.Http;
+using System.Web.Http.Description;
+using ProyectoFinalSW.Data.CryptEntities;
 using ProyectoFinalSW.Models;
 
 namespace ProyectoFinalSW.Controllers
 {
-    public class AerolineaController : Controller
+    public class AerolineaController : ApiController
     {
-        private VVuelosEntities db = new VVuelosEntities();
+        private VVuelosEntity db = new VVuelosEntity();
 
-        // GET: Aerolinea
-        public ActionResult Index()
+        // GET: api/Aerolinea
+        public List<Aerolinea> GetAerolineas()
         {
-            var aerolineas = db.Aerolineas.Include(a => a.Consecutivo);
-            return View(aerolineas.ToList());
+            return AerolineaCrypt.DecryptarAerolineas(db.Aerolineas.ToList());
         }
 
-        // GET: Aerolinea/Details/5
-        public ActionResult Details(string id)
+        // GET: api/Aerolinea/5
+        [ResponseType(typeof(Aerolinea))]
+        public IHttpActionResult GetAerolinea(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Aerolinea aerolinea = db.Aerolineas.Find(id);
+            var aerolinea = db.Aerolineas.Find(id);
             if (aerolinea == null)
-            {
-                return HttpNotFound();
-            }
-            return View(aerolinea);
+                return NotFound();
+            return Ok(AerolineaCrypt.DecryptarAerolinea(aerolinea));
         }
 
-        // GET: Aerolinea/Create
-        public ActionResult Create()
+        // PUT: api/Aerolinea/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutAerolinea(string id, Aerolinea aerolinea)
         {
-            ViewBag.ConsecutivoId = new SelectList(db.Consecutivoes, "Id", "Descripcion");
-            return View();
-        }
-
-        // POST: Aerolinea/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nombre,Logo,ConsecutivoId")] Aerolinea aerolinea)
-        {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            if (id != aerolinea.Id)
+                return BadRequest();
+            aerolinea = AerolineaCrypt.EncryptarAerolinea(aerolinea);
+            db.Entry(aerolinea).State = EntityState.Modified;
+            try
             {
-                db.Aerolineas.Add(aerolinea);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
-
-            ViewBag.ConsecutivoId = new SelectList(db.Consecutivoes, "Id", "Descripcion", aerolinea.ConsecutivoId);
-            return View(aerolinea);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AerolineaExists(id))
+                    return NotFound();
+                else
+                    throw;
+            }
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: Aerolinea/Edit/5
-        public ActionResult Edit(string id)
+        // POST: api/Aerolinea
+        [ResponseType(typeof(Aerolinea))]
+        public IHttpActionResult PostAerolinea(Aerolinea aerolinea)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            db.Aerolineas.Add(AerolineaCrypt.EncryptarAerolinea(aerolinea));
+            db.SaveChanges();
+            return CreatedAtRoute("DefaultApi", new { aerolinea.Id }, aerolinea);
+        }
+
+        // DELETE: api/Aerolinea/5
+        [ResponseType(typeof(Aerolinea))]
+        public IHttpActionResult DeleteAerolinea(string id)
+        {
             Aerolinea aerolinea = db.Aerolineas.Find(id);
             if (aerolinea == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ConsecutivoId = new SelectList(db.Consecutivoes, "Id", "Descripcion", aerolinea.ConsecutivoId);
-            return View(aerolinea);
-        }
-
-        // POST: Aerolinea/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nombre,Logo,ConsecutivoId")] Aerolinea aerolinea)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(aerolinea).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ConsecutivoId = new SelectList(db.Consecutivoes, "Id", "Descripcion", aerolinea.ConsecutivoId);
-            return View(aerolinea);
-        }
-
-        // GET: Aerolinea/Delete/5
-        public ActionResult Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Aerolinea aerolinea = db.Aerolineas.Find(id);
-            if (aerolinea == null)
-            {
-                return HttpNotFound();
-            }
-            return View(aerolinea);
-        }
-
-        // POST: Aerolinea/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            Aerolinea aerolinea = db.Aerolineas.Find(id);
+                return NotFound();
             db.Aerolineas.Remove(aerolinea);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Ok(AerolineaCrypt.DecryptarAerolinea(aerolinea));
         }
 
         protected override void Dispose(bool disposing)
@@ -127,6 +85,11 @@ namespace ProyectoFinalSW.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private bool AerolineaExists(string id)
+        {
+            return db.Aerolineas.Count(e => e.Id == id) > 0;
         }
     }
 }
