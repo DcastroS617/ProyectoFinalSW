@@ -7,17 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProyectoFinalSW.Models
+namespace ProyectoFinalSW.Modelos
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class AerolineaPai
+    public partial class Reserva
     {
         public string Id { get; set; }
-        public string Pais { get; set; }
-        public string AerolineaId { get; set; }
+        public string Descripcion { get; set; }
+        public int ConsecutivoId { get; set; }
+        public int UserId { get; set; }
+        public string VueloId { get; set; }
     
-        public virtual Aerolinea Aerolinea { get; set; }
+        public virtual Consecutivo Consecutivo { get; set; }
+        public virtual User User { get; set; }
+        public virtual Vuelo Vuelo { get; set; }
     }
 }

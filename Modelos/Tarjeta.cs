@@ -7,21 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProyectoFinalSW.Models
+namespace ProyectoFinalSW.Modelos
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Reserva
+    public partial class Tarjeta
     {
         public string Id { get; set; }
-        public string Descripcion { get; set; }
-        public int ConsecutivoId { get; set; }
-        public int UserId { get; set; }
-        public string VueloId { get; set; }
+        public string NumTarjeta { get; set; }
+        public string MesExp { get; set; }
+        public string DiaExp { get; set; }
+        public string CVV { get; set; }
+        public string Monto { get; set; }
+        public string Tipo { get; set; }
+        public string CompraId { get; set; }
     
-        public virtual Consecutivo Consecutivo { get; set; }
-        public virtual User User { get; set; }
-        public virtual Vuelo Vuelo { get; set; }
+        public virtual Compra Compra { get; set; }
     }
 }

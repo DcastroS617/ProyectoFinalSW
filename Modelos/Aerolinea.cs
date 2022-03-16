@@ -7,28 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProyectoFinalSW.Models
+namespace ProyectoFinalSW.Modelos
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class PuertaAeropuerto
+    public partial class Aerolinea
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PuertaAeropuerto()
+        public Aerolinea()
         {
-            this.PuertaActivas = new HashSet<PuertaActiva>();
+            this.AerolineaPais = new HashSet<AerolineaPai>();
             this.Vueloes = new HashSet<Vuelo>();
         }
     
         public string Id { get; set; }
-        public string Numero { get; set; }
-        public string Descripcion { get; set; }
+        public string Nombre { get; set; }
+        public string Logo { get; set; }
         public int ConsecutivoId { get; set; }
     
-        public virtual Consecutivo Consecutivo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PuertaActiva> PuertaActivas { get; set; }
+        public virtual ICollection<AerolineaPai> AerolineaPais { get; set; }
+        public virtual Consecutivo Consecutivo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Vuelo> Vueloes { get; set; }
     }

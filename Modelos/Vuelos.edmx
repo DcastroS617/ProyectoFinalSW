@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="VVuelosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="VVuelosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Aerolinea">
           <Key>
             <PropertyRef Name="Id" />
@@ -100,16 +100,6 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="VueloId" Type="nvarchar" MaxLength="8" Nullable="false" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="Tarjeta">
           <Key>
             <PropertyRef Name="Id" />
@@ -128,10 +118,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Username" Type="varchar(max)" Nullable="false" />
-          <Property Name="Contrasena" Type="varchar(max)" Nullable="false" />
-          <Property Name="Email" Type="varchar(max)" Nullable="false" />
-          <Property Name="Role" Type="varchar(max)" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Contrasena" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <EntityType Name="Vuelo">
           <Key>
@@ -143,7 +133,7 @@
           <Property Name="OrigenId" Type="nvarchar" MaxLength="8" Nullable="false" />
           <Property Name="PuertaAeropuertoId" Type="nvarchar" MaxLength="8" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Aerolinea__Aerol__4D94879B">
+        <Association Name="FK__Aerolinea__Aerol__4E88ABD4">
           <End Role="Aerolinea" Type="Self.Aerolinea" Multiplicity="1" />
           <End Role="AerolineaPais" Type="Self.AerolineaPais" Multiplicity="*" />
           <ReferentialConstraint>
@@ -155,7 +145,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Aerolinea__Conse__44FF419A">
+        <Association Name="FK__Aerolinea__Conse__4D94879B">
           <End Role="Consecutivo" Type="Self.Consecutivo" Multiplicity="1" />
           <End Role="Aerolinea" Type="Self.Aerolinea" Multiplicity="*" />
           <ReferentialConstraint>
@@ -167,7 +157,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Compra__Consecut__46E78A0C">
+        <Association Name="FK__Compra__Consecut__4F7CD00D">
           <End Role="Consecutivo" Type="Self.Consecutivo" Multiplicity="1" />
           <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
           <ReferentialConstraint>
@@ -179,7 +169,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Compra__UserId__571DF1D5">
+        <Association Name="FK__Compra__UserId__5070F446">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
           <ReferentialConstraint>
@@ -191,7 +181,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Compra__VueloId__5629CD9C">
+        <Association Name="FK__Compra__VueloId__5165187F">
           <End Role="Vuelo" Type="Self.Vuelo" Multiplicity="1" />
           <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
           <ReferentialConstraint>
@@ -203,7 +193,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Origen__Consecut__440B1D61">
+        <Association Name="FK__Origen__Consecut__52593CB8">
           <End Role="Consecutivo" Type="Self.Consecutivo" Multiplicity="1" />
           <End Role="Origen" Type="Self.Origen" Multiplicity="*" />
           <ReferentialConstraint>
@@ -215,7 +205,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PuertaAct__Puert__4E88ABD4">
+        <Association Name="FK__PuertaAct__Puert__534D60F1">
           <End Role="PuertaAeropuerto" Type="Self.PuertaAeropuerto" Multiplicity="1" />
           <End Role="PuertaActiva" Type="Self.PuertaActiva" Multiplicity="*" />
           <ReferentialConstraint>
@@ -227,7 +217,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PuertaAer__Conse__45F365D3">
+        <Association Name="FK__PuertaAer__Conse__5441852A">
           <End Role="Consecutivo" Type="Self.Consecutivo" Multiplicity="1" />
           <End Role="PuertaAeropuerto" Type="Self.PuertaAeropuerto" Multiplicity="*" />
           <ReferentialConstraint>
@@ -239,7 +229,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reserva__Consecu__47DBAE45">
+        <Association Name="FK__Reserva__Consecu__5535A963">
           <End Role="Consecutivo" Type="Self.Consecutivo" Multiplicity="1" />
           <End Role="Reserva" Type="Self.Reserva" Multiplicity="*" />
           <ReferentialConstraint>
@@ -251,7 +241,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reserva__UserId__59063A47">
+        <Association Name="FK__Reserva__UserId__5629CD9C">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Reserva" Type="Self.Reserva" Multiplicity="*" />
           <ReferentialConstraint>
@@ -263,7 +253,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reserva__VueloId__59FA5E80">
+        <Association Name="FK__Reserva__VueloId__571DF1D5">
           <End Role="Vuelo" Type="Self.Vuelo" Multiplicity="1" />
           <End Role="Reserva" Type="Self.Reserva" Multiplicity="*" />
           <ReferentialConstraint>
@@ -287,7 +277,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Vuelo__Aerolinea__5165187F">
+        <Association Name="FK__Vuelo__Aerolinea__59063A47">
           <End Role="Aerolinea" Type="Self.Aerolinea" Multiplicity="1" />
           <End Role="Vuelo" Type="Self.Vuelo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -299,7 +289,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Vuelo__OrigenId__52593CB8">
+        <Association Name="FK__Vuelo__OrigenId__59FA5E80">
           <End Role="Origen" Type="Self.Origen" Multiplicity="1" />
           <End Role="Vuelo" Type="Self.Vuelo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -311,7 +301,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Vuelo__PuertaAer__534D60F1">
+        <Association Name="FK__Vuelo__PuertaAer__5AEE82B9">
           <End Role="PuertaAeropuerto" Type="Self.PuertaAeropuerto" Multiplicity="1" />
           <End Role="Vuelo" Type="Self.Vuelo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -334,51 +324,50 @@
           <EntitySet Name="PuertaActiva" EntityType="Self.PuertaActiva" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PuertaAeropuerto" EntityType="Self.PuertaAeropuerto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reserva" EntityType="Self.Reserva" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tarjeta" EntityType="Self.Tarjeta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vuelo" EntityType="Self.Vuelo" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Aerolinea__Aerol__4D94879B" Association="Self.FK__Aerolinea__Aerol__4D94879B">
+          <AssociationSet Name="FK__Aerolinea__Aerol__4E88ABD4" Association="Self.FK__Aerolinea__Aerol__4E88ABD4">
             <End Role="Aerolinea" EntitySet="Aerolinea" />
             <End Role="AerolineaPais" EntitySet="AerolineaPais" />
           </AssociationSet>
-          <AssociationSet Name="FK__Aerolinea__Conse__44FF419A" Association="Self.FK__Aerolinea__Conse__44FF419A">
+          <AssociationSet Name="FK__Aerolinea__Conse__4D94879B" Association="Self.FK__Aerolinea__Conse__4D94879B">
             <End Role="Consecutivo" EntitySet="Consecutivo" />
             <End Role="Aerolinea" EntitySet="Aerolinea" />
           </AssociationSet>
-          <AssociationSet Name="FK__Compra__Consecut__46E78A0C" Association="Self.FK__Compra__Consecut__46E78A0C">
+          <AssociationSet Name="FK__Compra__Consecut__4F7CD00D" Association="Self.FK__Compra__Consecut__4F7CD00D">
             <End Role="Consecutivo" EntitySet="Consecutivo" />
             <End Role="Compra" EntitySet="Compra" />
           </AssociationSet>
-          <AssociationSet Name="FK__Compra__UserId__571DF1D5" Association="Self.FK__Compra__UserId__571DF1D5">
+          <AssociationSet Name="FK__Compra__UserId__5070F446" Association="Self.FK__Compra__UserId__5070F446">
             <End Role="User" EntitySet="User" />
             <End Role="Compra" EntitySet="Compra" />
           </AssociationSet>
-          <AssociationSet Name="FK__Compra__VueloId__5629CD9C" Association="Self.FK__Compra__VueloId__5629CD9C">
+          <AssociationSet Name="FK__Compra__VueloId__5165187F" Association="Self.FK__Compra__VueloId__5165187F">
             <End Role="Vuelo" EntitySet="Vuelo" />
             <End Role="Compra" EntitySet="Compra" />
           </AssociationSet>
-          <AssociationSet Name="FK__Origen__Consecut__440B1D61" Association="Self.FK__Origen__Consecut__440B1D61">
+          <AssociationSet Name="FK__Origen__Consecut__52593CB8" Association="Self.FK__Origen__Consecut__52593CB8">
             <End Role="Consecutivo" EntitySet="Consecutivo" />
             <End Role="Origen" EntitySet="Origen" />
           </AssociationSet>
-          <AssociationSet Name="FK__PuertaAct__Puert__4E88ABD4" Association="Self.FK__PuertaAct__Puert__4E88ABD4">
+          <AssociationSet Name="FK__PuertaAct__Puert__534D60F1" Association="Self.FK__PuertaAct__Puert__534D60F1">
             <End Role="PuertaAeropuerto" EntitySet="PuertaAeropuerto" />
             <End Role="PuertaActiva" EntitySet="PuertaActiva" />
           </AssociationSet>
-          <AssociationSet Name="FK__PuertaAer__Conse__45F365D3" Association="Self.FK__PuertaAer__Conse__45F365D3">
+          <AssociationSet Name="FK__PuertaAer__Conse__5441852A" Association="Self.FK__PuertaAer__Conse__5441852A">
             <End Role="Consecutivo" EntitySet="Consecutivo" />
             <End Role="PuertaAeropuerto" EntitySet="PuertaAeropuerto" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reserva__Consecu__47DBAE45" Association="Self.FK__Reserva__Consecu__47DBAE45">
+          <AssociationSet Name="FK__Reserva__Consecu__5535A963" Association="Self.FK__Reserva__Consecu__5535A963">
             <End Role="Consecutivo" EntitySet="Consecutivo" />
             <End Role="Reserva" EntitySet="Reserva" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reserva__UserId__59063A47" Association="Self.FK__Reserva__UserId__59063A47">
+          <AssociationSet Name="FK__Reserva__UserId__5629CD9C" Association="Self.FK__Reserva__UserId__5629CD9C">
             <End Role="User" EntitySet="User" />
             <End Role="Reserva" EntitySet="Reserva" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reserva__VueloId__59FA5E80" Association="Self.FK__Reserva__VueloId__59FA5E80">
+          <AssociationSet Name="FK__Reserva__VueloId__571DF1D5" Association="Self.FK__Reserva__VueloId__571DF1D5">
             <End Role="Vuelo" EntitySet="Vuelo" />
             <End Role="Reserva" EntitySet="Reserva" />
           </AssociationSet>
@@ -386,20 +375,21 @@
             <End Role="Compra" EntitySet="Compra" />
             <End Role="Tarjeta" EntitySet="Tarjeta" />
           </AssociationSet>
-          <AssociationSet Name="FK__Vuelo__Aerolinea__5165187F" Association="Self.FK__Vuelo__Aerolinea__5165187F">
+          <AssociationSet Name="FK__Vuelo__Aerolinea__59063A47" Association="Self.FK__Vuelo__Aerolinea__59063A47">
             <End Role="Aerolinea" EntitySet="Aerolinea" />
             <End Role="Vuelo" EntitySet="Vuelo" />
           </AssociationSet>
-          <AssociationSet Name="FK__Vuelo__OrigenId__52593CB8" Association="Self.FK__Vuelo__OrigenId__52593CB8">
+          <AssociationSet Name="FK__Vuelo__OrigenId__59FA5E80" Association="Self.FK__Vuelo__OrigenId__59FA5E80">
             <End Role="Origen" EntitySet="Origen" />
             <End Role="Vuelo" EntitySet="Vuelo" />
           </AssociationSet>
-          <AssociationSet Name="FK__Vuelo__PuertaAer__534D60F1" Association="Self.FK__Vuelo__PuertaAer__534D60F1">
+          <AssociationSet Name="FK__Vuelo__PuertaAer__5AEE82B9" Association="Self.FK__Vuelo__PuertaAer__5AEE82B9">
             <End Role="PuertaAeropuerto" EntitySet="PuertaAeropuerto" />
             <End Role="Vuelo" EntitySet="Vuelo" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="VVuelosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -411,9 +401,9 @@
           <Property Name="Nombre" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Logo" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ConsecutivoId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AerolineaPais" Relationship="Self.FK__Aerolinea__Aerol__4D94879B" FromRole="Aerolinea" ToRole="AerolineaPais" />
-          <NavigationProperty Name="Consecutivo" Relationship="Self.FK__Aerolinea__Conse__44FF419A" FromRole="Aerolinea" ToRole="Consecutivo" />
-          <NavigationProperty Name="Vueloes" Relationship="Self.FK__Vuelo__Aerolinea__5165187F" FromRole="Aerolinea" ToRole="Vuelo" />
+          <NavigationProperty Name="AerolineaPais" Relationship="Self.FK__Aerolinea__Aerol__4E88ABD4" FromRole="Aerolinea" ToRole="AerolineaPais" />
+          <NavigationProperty Name="Consecutivo" Relationship="Self.FK__Aerolinea__Conse__4D94879B" FromRole="Aerolinea" ToRole="Consecutivo" />
+          <NavigationProperty Name="Vueloes" Relationship="Self.FK__Vuelo__Aerolinea__59063A47" FromRole="Aerolinea" ToRole="Vuelo" />
         </EntityType>
         <EntityType Name="AerolineaPai">
           <Key>
@@ -422,7 +412,7 @@
           <Property Name="Id" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Pais" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AerolineaId" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Aerolinea" Relationship="Self.FK__Aerolinea__Aerol__4D94879B" FromRole="AerolineaPais" ToRole="Aerolinea" />
+          <NavigationProperty Name="Aerolinea" Relationship="Self.FK__Aerolinea__Aerol__4E88ABD4" FromRole="AerolineaPais" ToRole="Aerolinea" />
         </EntityType>
         <EntityType Name="Bitacora">
           <Key>
@@ -445,9 +435,9 @@
           <Property Name="ConsecutivoId" Type="Int32" Nullable="false" />
           <Property Name="VueloId" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Consecutivo" Relationship="Self.FK__Compra__Consecut__46E78A0C" FromRole="Compra" ToRole="Consecutivo" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Compra__UserId__571DF1D5" FromRole="Compra" ToRole="User" />
-          <NavigationProperty Name="Vuelo" Relationship="Self.FK__Compra__VueloId__5629CD9C" FromRole="Compra" ToRole="Vuelo" />
+          <NavigationProperty Name="Consecutivo" Relationship="Self.FK__Compra__Consecut__4F7CD00D" FromRole="Compra" ToRole="Consecutivo" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Compra__UserId__5070F446" FromRole="Compra" ToRole="User" />
+          <NavigationProperty Name="Vuelo" Relationship="Self.FK__Compra__VueloId__5165187F" FromRole="Compra" ToRole="Vuelo" />
           <NavigationProperty Name="Tarjetas" Relationship="Self.FK__Tarjeta__CompraI__5812160E" FromRole="Compra" ToRole="Tarjeta" />
         </EntityType>
         <EntityType Name="Consecutivo">
@@ -459,11 +449,11 @@
           <Property Name="Prefijo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="RangoInicial" Type="Int32" />
           <Property Name="RangoFinal" Type="Int32" />
-          <NavigationProperty Name="Aerolineas" Relationship="Self.FK__Aerolinea__Conse__44FF419A" FromRole="Consecutivo" ToRole="Aerolinea" />
-          <NavigationProperty Name="Compras" Relationship="Self.FK__Compra__Consecut__46E78A0C" FromRole="Consecutivo" ToRole="Compra" />
-          <NavigationProperty Name="Origens" Relationship="Self.FK__Origen__Consecut__440B1D61" FromRole="Consecutivo" ToRole="Origen" />
-          <NavigationProperty Name="PuertaAeropuertoes" Relationship="Self.FK__PuertaAer__Conse__45F365D3" FromRole="Consecutivo" ToRole="PuertaAeropuerto" />
-          <NavigationProperty Name="Reservas" Relationship="Self.FK__Reserva__Consecu__47DBAE45" FromRole="Consecutivo" ToRole="Reserva" />
+          <NavigationProperty Name="Aerolineas" Relationship="Self.FK__Aerolinea__Conse__4D94879B" FromRole="Consecutivo" ToRole="Aerolinea" />
+          <NavigationProperty Name="Compras" Relationship="Self.FK__Compra__Consecut__4F7CD00D" FromRole="Consecutivo" ToRole="Compra" />
+          <NavigationProperty Name="Origens" Relationship="Self.FK__Origen__Consecut__52593CB8" FromRole="Consecutivo" ToRole="Origen" />
+          <NavigationProperty Name="PuertaAeropuertoes" Relationship="Self.FK__PuertaAer__Conse__5441852A" FromRole="Consecutivo" ToRole="PuertaAeropuerto" />
+          <NavigationProperty Name="Reservas" Relationship="Self.FK__Reserva__Consecu__5535A963" FromRole="Consecutivo" ToRole="Reserva" />
         </EntityType>
         <EntityType Name="Error">
           <Key>
@@ -483,8 +473,8 @@
           <Property Name="Descripcion" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Bandera" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ConsecutivoId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Consecutivo" Relationship="Self.FK__Origen__Consecut__440B1D61" FromRole="Origen" ToRole="Consecutivo" />
-          <NavigationProperty Name="Vueloes" Relationship="Self.FK__Vuelo__OrigenId__52593CB8" FromRole="Origen" ToRole="Vuelo" />
+          <NavigationProperty Name="Consecutivo" Relationship="Self.FK__Origen__Consecut__52593CB8" FromRole="Origen" ToRole="Consecutivo" />
+          <NavigationProperty Name="Vueloes" Relationship="Self.FK__Vuelo__OrigenId__59FA5E80" FromRole="Origen" ToRole="Vuelo" />
         </EntityType>
         <EntityType Name="PuertaActiva">
           <Key>
@@ -493,7 +483,7 @@
           <Property Name="Id" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="PuertaAeropuertoId" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="PuertaAeropuerto" Relationship="Self.FK__PuertaAct__Puert__4E88ABD4" FromRole="PuertaActiva" ToRole="PuertaAeropuerto" />
+          <NavigationProperty Name="PuertaAeropuerto" Relationship="Self.FK__PuertaAct__Puert__534D60F1" FromRole="PuertaActiva" ToRole="PuertaAeropuerto" />
         </EntityType>
         <EntityType Name="PuertaAeropuerto">
           <Key>
@@ -503,9 +493,9 @@
           <Property Name="Numero" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ConsecutivoId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Consecutivo" Relationship="Self.FK__PuertaAer__Conse__45F365D3" FromRole="PuertaAeropuerto" ToRole="Consecutivo" />
-          <NavigationProperty Name="PuertaActivas" Relationship="Self.FK__PuertaAct__Puert__4E88ABD4" FromRole="PuertaAeropuerto" ToRole="PuertaActiva" />
-          <NavigationProperty Name="Vueloes" Relationship="Self.FK__Vuelo__PuertaAer__534D60F1" FromRole="PuertaAeropuerto" ToRole="Vuelo" />
+          <NavigationProperty Name="Consecutivo" Relationship="Self.FK__PuertaAer__Conse__5441852A" FromRole="PuertaAeropuerto" ToRole="Consecutivo" />
+          <NavigationProperty Name="PuertaActivas" Relationship="Self.FK__PuertaAct__Puert__534D60F1" FromRole="PuertaAeropuerto" ToRole="PuertaActiva" />
+          <NavigationProperty Name="Vueloes" Relationship="Self.FK__Vuelo__PuertaAer__5AEE82B9" FromRole="PuertaAeropuerto" ToRole="Vuelo" />
         </EntityType>
         <EntityType Name="Reserva">
           <Key>
@@ -516,19 +506,9 @@
           <Property Name="ConsecutivoId" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="VueloId" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Consecutivo" Relationship="Self.FK__Reserva__Consecu__47DBAE45" FromRole="Reserva" ToRole="Consecutivo" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Reserva__UserId__59063A47" FromRole="Reserva" ToRole="User" />
-          <NavigationProperty Name="Vuelo" Relationship="Self.FK__Reserva__VueloId__59FA5E80" FromRole="Reserva" ToRole="Vuelo" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Consecutivo" Relationship="Self.FK__Reserva__Consecu__5535A963" FromRole="Reserva" ToRole="Consecutivo" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Reserva__UserId__5629CD9C" FromRole="Reserva" ToRole="User" />
+          <NavigationProperty Name="Vuelo" Relationship="Self.FK__Reserva__VueloId__571DF1D5" FromRole="Reserva" ToRole="Vuelo" />
         </EntityType>
         <EntityType Name="Tarjeta">
           <Key>
@@ -549,12 +529,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Contrasena" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Role" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Compras" Relationship="Self.FK__Compra__UserId__571DF1D5" FromRole="User" ToRole="Compra" />
-          <NavigationProperty Name="Reservas" Relationship="Self.FK__Reserva__UserId__59063A47" FromRole="User" ToRole="Reserva" />
+          <Property Name="Username" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contrasena" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Compras" Relationship="Self.FK__Compra__UserId__5070F446" FromRole="User" ToRole="Compra" />
+          <NavigationProperty Name="Reservas" Relationship="Self.FK__Reserva__UserId__5629CD9C" FromRole="User" ToRole="Reserva" />
         </EntityType>
         <EntityType Name="Vuelo">
           <Key>
@@ -565,13 +545,13 @@
           <Property Name="AerolineaId" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="OrigenId" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PuertaAeropuertoId" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Aerolinea" Relationship="Self.FK__Vuelo__Aerolinea__5165187F" FromRole="Vuelo" ToRole="Aerolinea" />
-          <NavigationProperty Name="Compras" Relationship="Self.FK__Compra__VueloId__5629CD9C" FromRole="Vuelo" ToRole="Compra" />
-          <NavigationProperty Name="Origen" Relationship="Self.FK__Vuelo__OrigenId__52593CB8" FromRole="Vuelo" ToRole="Origen" />
-          <NavigationProperty Name="PuertaAeropuerto" Relationship="Self.FK__Vuelo__PuertaAer__534D60F1" FromRole="Vuelo" ToRole="PuertaAeropuerto" />
-          <NavigationProperty Name="Reservas" Relationship="Self.FK__Reserva__VueloId__59FA5E80" FromRole="Vuelo" ToRole="Reserva" />
+          <NavigationProperty Name="Aerolinea" Relationship="Self.FK__Vuelo__Aerolinea__59063A47" FromRole="Vuelo" ToRole="Aerolinea" />
+          <NavigationProperty Name="Compras" Relationship="Self.FK__Compra__VueloId__5165187F" FromRole="Vuelo" ToRole="Compra" />
+          <NavigationProperty Name="Origen" Relationship="Self.FK__Vuelo__OrigenId__59FA5E80" FromRole="Vuelo" ToRole="Origen" />
+          <NavigationProperty Name="PuertaAeropuerto" Relationship="Self.FK__Vuelo__PuertaAer__5AEE82B9" FromRole="Vuelo" ToRole="PuertaAeropuerto" />
+          <NavigationProperty Name="Reservas" Relationship="Self.FK__Reserva__VueloId__571DF1D5" FromRole="Vuelo" ToRole="Reserva" />
         </EntityType>
-        <Association Name="FK__Aerolinea__Aerol__4D94879B">
+        <Association Name="FK__Aerolinea__Aerol__4E88ABD4">
           <End Role="Aerolinea" Type="Self.Aerolinea" Multiplicity="1" />
           <End Role="AerolineaPais" Type="Self.AerolineaPai" Multiplicity="*" />
           <ReferentialConstraint>
@@ -583,7 +563,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Aerolinea__Conse__44FF419A">
+        <Association Name="FK__Aerolinea__Conse__4D94879B">
           <End Role="Consecutivo" Type="Self.Consecutivo" Multiplicity="1" />
           <End Role="Aerolinea" Type="Self.Aerolinea" Multiplicity="*" />
           <ReferentialConstraint>
@@ -595,7 +575,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Vuelo__Aerolinea__5165187F">
+        <Association Name="FK__Vuelo__Aerolinea__59063A47">
           <End Role="Aerolinea" Type="Self.Aerolinea" Multiplicity="1" />
           <End Role="Vuelo" Type="Self.Vuelo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -607,7 +587,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Compra__Consecut__46E78A0C">
+        <Association Name="FK__Compra__Consecut__4F7CD00D">
           <End Role="Consecutivo" Type="Self.Consecutivo" Multiplicity="1" />
           <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
           <ReferentialConstraint>
@@ -619,7 +599,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Compra__UserId__571DF1D5">
+        <Association Name="FK__Compra__UserId__5070F446">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
           <ReferentialConstraint>
@@ -631,7 +611,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Compra__VueloId__5629CD9C">
+        <Association Name="FK__Compra__VueloId__5165187F">
           <End Role="Vuelo" Type="Self.Vuelo" Multiplicity="1" />
           <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
           <ReferentialConstraint>
@@ -655,7 +635,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Origen__Consecut__440B1D61">
+        <Association Name="FK__Origen__Consecut__52593CB8">
           <End Role="Consecutivo" Type="Self.Consecutivo" Multiplicity="1" />
           <End Role="Origen" Type="Self.Origen" Multiplicity="*" />
           <ReferentialConstraint>
@@ -667,7 +647,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PuertaAer__Conse__45F365D3">
+        <Association Name="FK__PuertaAer__Conse__5441852A">
           <End Role="Consecutivo" Type="Self.Consecutivo" Multiplicity="1" />
           <End Role="PuertaAeropuerto" Type="Self.PuertaAeropuerto" Multiplicity="*" />
           <ReferentialConstraint>
@@ -679,7 +659,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reserva__Consecu__47DBAE45">
+        <Association Name="FK__Reserva__Consecu__5535A963">
           <End Role="Consecutivo" Type="Self.Consecutivo" Multiplicity="1" />
           <End Role="Reserva" Type="Self.Reserva" Multiplicity="*" />
           <ReferentialConstraint>
@@ -691,7 +671,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Vuelo__OrigenId__52593CB8">
+        <Association Name="FK__Vuelo__OrigenId__59FA5E80">
           <End Role="Origen" Type="Self.Origen" Multiplicity="1" />
           <End Role="Vuelo" Type="Self.Vuelo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -703,7 +683,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PuertaAct__Puert__4E88ABD4">
+        <Association Name="FK__PuertaAct__Puert__534D60F1">
           <End Role="PuertaAeropuerto" Type="Self.PuertaAeropuerto" Multiplicity="1" />
           <End Role="PuertaActiva" Type="Self.PuertaActiva" Multiplicity="*" />
           <ReferentialConstraint>
@@ -715,7 +695,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Vuelo__PuertaAer__534D60F1">
+        <Association Name="FK__Vuelo__PuertaAer__5AEE82B9">
           <End Role="PuertaAeropuerto" Type="Self.PuertaAeropuerto" Multiplicity="1" />
           <End Role="Vuelo" Type="Self.Vuelo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -727,7 +707,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reserva__UserId__59063A47">
+        <Association Name="FK__Reserva__UserId__5629CD9C">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Reserva" Type="Self.Reserva" Multiplicity="*" />
           <ReferentialConstraint>
@@ -739,7 +719,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reserva__VueloId__59FA5E80">
+        <Association Name="FK__Reserva__VueloId__571DF1D5">
           <End Role="Vuelo" Type="Self.Vuelo" Multiplicity="1" />
           <End Role="Reserva" Type="Self.Reserva" Multiplicity="*" />
           <ReferentialConstraint>
@@ -751,7 +731,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="VVuelosEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="VVuelosEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Aerolineas" EntityType="Self.Aerolinea" />
           <EntitySet Name="AerolineaPais" EntityType="Self.AerolineaPai" />
           <EntitySet Name="Bitacoras" EntityType="Self.Bitacora" />
@@ -762,31 +742,30 @@
           <EntitySet Name="PuertaActivas" EntityType="Self.PuertaActiva" />
           <EntitySet Name="PuertaAeropuertoes" EntityType="Self.PuertaAeropuerto" />
           <EntitySet Name="Reservas" EntityType="Self.Reserva" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Tarjetas" EntityType="Self.Tarjeta" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="Vueloes" EntityType="Self.Vuelo" />
-          <AssociationSet Name="FK__Aerolinea__Aerol__4D94879B" Association="Self.FK__Aerolinea__Aerol__4D94879B">
+          <AssociationSet Name="FK__Aerolinea__Aerol__4E88ABD4" Association="Self.FK__Aerolinea__Aerol__4E88ABD4">
             <End Role="Aerolinea" EntitySet="Aerolineas" />
             <End Role="AerolineaPais" EntitySet="AerolineaPais" />
           </AssociationSet>
-          <AssociationSet Name="FK__Aerolinea__Conse__44FF419A" Association="Self.FK__Aerolinea__Conse__44FF419A">
+          <AssociationSet Name="FK__Aerolinea__Conse__4D94879B" Association="Self.FK__Aerolinea__Conse__4D94879B">
             <End Role="Consecutivo" EntitySet="Consecutivoes" />
             <End Role="Aerolinea" EntitySet="Aerolineas" />
           </AssociationSet>
-          <AssociationSet Name="FK__Vuelo__Aerolinea__5165187F" Association="Self.FK__Vuelo__Aerolinea__5165187F">
+          <AssociationSet Name="FK__Vuelo__Aerolinea__59063A47" Association="Self.FK__Vuelo__Aerolinea__59063A47">
             <End Role="Aerolinea" EntitySet="Aerolineas" />
             <End Role="Vuelo" EntitySet="Vueloes" />
           </AssociationSet>
-          <AssociationSet Name="FK__Compra__Consecut__46E78A0C" Association="Self.FK__Compra__Consecut__46E78A0C">
+          <AssociationSet Name="FK__Compra__Consecut__4F7CD00D" Association="Self.FK__Compra__Consecut__4F7CD00D">
             <End Role="Consecutivo" EntitySet="Consecutivoes" />
             <End Role="Compra" EntitySet="Compras" />
           </AssociationSet>
-          <AssociationSet Name="FK__Compra__UserId__571DF1D5" Association="Self.FK__Compra__UserId__571DF1D5">
+          <AssociationSet Name="FK__Compra__UserId__5070F446" Association="Self.FK__Compra__UserId__5070F446">
             <End Role="User" EntitySet="Users" />
             <End Role="Compra" EntitySet="Compras" />
           </AssociationSet>
-          <AssociationSet Name="FK__Compra__VueloId__5629CD9C" Association="Self.FK__Compra__VueloId__5629CD9C">
+          <AssociationSet Name="FK__Compra__VueloId__5165187F" Association="Self.FK__Compra__VueloId__5165187F">
             <End Role="Vuelo" EntitySet="Vueloes" />
             <End Role="Compra" EntitySet="Compras" />
           </AssociationSet>
@@ -794,35 +773,35 @@
             <End Role="Compra" EntitySet="Compras" />
             <End Role="Tarjeta" EntitySet="Tarjetas" />
           </AssociationSet>
-          <AssociationSet Name="FK__Origen__Consecut__440B1D61" Association="Self.FK__Origen__Consecut__440B1D61">
+          <AssociationSet Name="FK__Origen__Consecut__52593CB8" Association="Self.FK__Origen__Consecut__52593CB8">
             <End Role="Consecutivo" EntitySet="Consecutivoes" />
             <End Role="Origen" EntitySet="Origens" />
           </AssociationSet>
-          <AssociationSet Name="FK__PuertaAer__Conse__45F365D3" Association="Self.FK__PuertaAer__Conse__45F365D3">
+          <AssociationSet Name="FK__PuertaAer__Conse__5441852A" Association="Self.FK__PuertaAer__Conse__5441852A">
             <End Role="Consecutivo" EntitySet="Consecutivoes" />
             <End Role="PuertaAeropuerto" EntitySet="PuertaAeropuertoes" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reserva__Consecu__47DBAE45" Association="Self.FK__Reserva__Consecu__47DBAE45">
+          <AssociationSet Name="FK__Reserva__Consecu__5535A963" Association="Self.FK__Reserva__Consecu__5535A963">
             <End Role="Consecutivo" EntitySet="Consecutivoes" />
             <End Role="Reserva" EntitySet="Reservas" />
           </AssociationSet>
-          <AssociationSet Name="FK__Vuelo__OrigenId__52593CB8" Association="Self.FK__Vuelo__OrigenId__52593CB8">
+          <AssociationSet Name="FK__Vuelo__OrigenId__59FA5E80" Association="Self.FK__Vuelo__OrigenId__59FA5E80">
             <End Role="Origen" EntitySet="Origens" />
             <End Role="Vuelo" EntitySet="Vueloes" />
           </AssociationSet>
-          <AssociationSet Name="FK__PuertaAct__Puert__4E88ABD4" Association="Self.FK__PuertaAct__Puert__4E88ABD4">
+          <AssociationSet Name="FK__PuertaAct__Puert__534D60F1" Association="Self.FK__PuertaAct__Puert__534D60F1">
             <End Role="PuertaAeropuerto" EntitySet="PuertaAeropuertoes" />
             <End Role="PuertaActiva" EntitySet="PuertaActivas" />
           </AssociationSet>
-          <AssociationSet Name="FK__Vuelo__PuertaAer__534D60F1" Association="Self.FK__Vuelo__PuertaAer__534D60F1">
+          <AssociationSet Name="FK__Vuelo__PuertaAer__5AEE82B9" Association="Self.FK__Vuelo__PuertaAer__5AEE82B9">
             <End Role="PuertaAeropuerto" EntitySet="PuertaAeropuertoes" />
             <End Role="Vuelo" EntitySet="Vueloes" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reserva__UserId__59063A47" Association="Self.FK__Reserva__UserId__59063A47">
+          <AssociationSet Name="FK__Reserva__UserId__5629CD9C" Association="Self.FK__Reserva__UserId__5629CD9C">
             <End Role="User" EntitySet="Users" />
             <End Role="Reserva" EntitySet="Reservas" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reserva__VueloId__59FA5E80" Association="Self.FK__Reserva__VueloId__59FA5E80">
+          <AssociationSet Name="FK__Reserva__VueloId__571DF1D5" Association="Self.FK__Reserva__VueloId__571DF1D5">
             <End Role="Vuelo" EntitySet="Vueloes" />
             <End Role="Reserva" EntitySet="Reservas" />
           </AssociationSet>
@@ -832,7 +811,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="VVuelosModelStoreContainer" CdmEntityContainer="VVuelosEntities">
+        <EntityContainerMapping StorageEntityContainer="VVuelosModelStoreContainer" CdmEntityContainer="VVuelosEntities1">
           <EntitySetMapping Name="Aerolineas">
             <EntityTypeMapping TypeName="VVuelosModel.Aerolinea">
               <MappingFragment StoreEntitySet="Aerolinea">
@@ -935,17 +914,6 @@
                 <ScalarProperty Name="ConsecutivoId" ColumnName="ConsecutivoId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="VueloId" ColumnName="VueloId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="VVuelosModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProyectoFinalSW.Models
+namespace ProyectoFinalSW.Modelos
 {
     using System;
     using System.Collections.Generic;

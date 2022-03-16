@@ -7,29 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProyectoFinalSW.Models
+namespace ProyectoFinalSW.Modelos
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Aerolinea
+    public partial class Compra
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Aerolinea()
+        public Compra()
         {
-            this.AerolineaPais = new HashSet<AerolineaPai>();
-            this.Vueloes = new HashSet<Vuelo>();
+            this.Tarjetas = new HashSet<Tarjeta>();
         }
     
         public string Id { get; set; }
-        public string Nombre { get; set; }
-        public string Logo { get; set; }
+        public string Descripcion { get; set; }
         public int ConsecutivoId { get; set; }
+        public string VueloId { get; set; }
+        public int UserId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AerolineaPai> AerolineaPais { get; set; }
         public virtual Consecutivo Consecutivo { get; set; }
+        public virtual User User { get; set; }
+        public virtual Vuelo Vuelo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vuelo> Vueloes { get; set; }
+        public virtual ICollection<Tarjeta> Tarjetas { get; set; }
     }
 }

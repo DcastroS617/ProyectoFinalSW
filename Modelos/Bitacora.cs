@@ -7,17 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProyectoFinalSW.Models
+namespace ProyectoFinalSW.Modelos
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class Bitacora
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public string Id { get; set; }
+        public string Usuario { get; set; }
+        public System.DateTime Fecha { get; set; }
+        public string Codigo { get; set; }
+        public string Tipo { get; set; }
+        public string Descripcion { get; set; }
+        public string Dato { get; set; }
     }
 }

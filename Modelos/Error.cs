@@ -7,22 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProyectoFinalSW.Models
+namespace ProyectoFinalSW.Modelos
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Tarjeta
+    public partial class Error
     {
         public string Id { get; set; }
-        public string NumTarjeta { get; set; }
-        public string MesExp { get; set; }
-        public string DiaExp { get; set; }
-        public string CVV { get; set; }
-        public string Monto { get; set; }
-        public string Tipo { get; set; }
-        public string CompraId { get; set; }
-    
-        public virtual Compra Compra { get; set; }
+        public string Mensaje { get; set; }
+        public System.DateTime Fecha { get; set; }
+        public string NumeroError { get; set; }
     }
 }

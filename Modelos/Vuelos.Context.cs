@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProyectoFinalSW.Models
+namespace ProyectoFinalSW.Modelos
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class VVuelosEntities : DbContext
+    public partial class VVuelosEntities1 : DbContext
     {
-        public VVuelosEntities()
-            : base("name=VVuelosEntities")
+        public VVuelosEntities1()
+            : base("name=VVuelosEntities1")
         {
         }
     
@@ -35,7 +35,6 @@ namespace ProyectoFinalSW.Models
         public virtual DbSet<PuertaActiva> PuertaActivas { get; set; }
         public virtual DbSet<PuertaAeropuerto> PuertaAeropuertoes { get; set; }
         public virtual DbSet<Reserva> Reservas { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tarjeta> Tarjetas { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Vuelo> Vueloes { get; set; }

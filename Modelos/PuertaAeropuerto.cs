@@ -7,29 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProyectoFinalSW.Models
+namespace ProyectoFinalSW.Modelos
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class PuertaAeropuerto
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public PuertaAeropuerto()
         {
-            this.Compras = new HashSet<Compra>();
-            this.Reservas = new HashSet<Reserva>();
+            this.PuertaActivas = new HashSet<PuertaActiva>();
+            this.Vueloes = new HashSet<Vuelo>();
         }
     
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string Contrasena { get; set; }
-        public string Email { get; set; }
-        public string Role { get; set; }
+        public string Id { get; set; }
+        public string Numero { get; set; }
+        public string Descripcion { get; set; }
+        public int ConsecutivoId { get; set; }
     
+        public virtual Consecutivo Consecutivo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Compra> Compras { get; set; }
+        public virtual ICollection<PuertaActiva> PuertaActivas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reserva> Reservas { get; set; }
+        public virtual ICollection<Vuelo> Vueloes { get; set; }
     }
 }

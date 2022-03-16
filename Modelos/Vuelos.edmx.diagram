@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="73f8a08f50e848a4925bee30a34afb05" Name="Diagram1">
+      <Diagram DiagramId="225283ac4d62444a983780020c0cb7af" Name="Diagram1">
         <EntityTypeShape EntityType="VVuelosModel.Aerolinea" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="VVuelosModel.AerolineaPai" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="VVuelosModel.Bitacora" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
@@ -15,25 +15,24 @@
         <EntityTypeShape EntityType="VVuelosModel.PuertaActiva" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
         <EntityTypeShape EntityType="VVuelosModel.PuertaAeropuerto" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
         <EntityTypeShape EntityType="VVuelosModel.Reserva" Width="1.5" PointX="10.5" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="VVuelosModel.sysdiagram" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VVuelosModel.Tarjeta" Width="1.5" PointX="9.75" PointY="11.625" IsExpanded="true" />
         <EntityTypeShape EntityType="VVuelosModel.User" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VVuelosModel.Vuelo" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
-        <AssociationConnector Association="VVuelosModel.FK__Aerolinea__Aerol__4D94879B" ManuallyRouted="false" />
-        <AssociationConnector Association="VVuelosModel.FK__Aerolinea__Conse__44FF419A" ManuallyRouted="false" />
-        <AssociationConnector Association="VVuelosModel.FK__Vuelo__Aerolinea__5165187F" ManuallyRouted="false" />
-        <AssociationConnector Association="VVuelosModel.FK__Compra__Consecut__46E78A0C" ManuallyRouted="false" />
-        <AssociationConnector Association="VVuelosModel.FK__Compra__UserId__571DF1D5" ManuallyRouted="false" />
-        <AssociationConnector Association="VVuelosModel.FK__Compra__VueloId__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="VVuelosModel.FK__Aerolinea__Aerol__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="VVuelosModel.FK__Aerolinea__Conse__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="VVuelosModel.FK__Vuelo__Aerolinea__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="VVuelosModel.FK__Compra__Consecut__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="VVuelosModel.FK__Compra__UserId__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="VVuelosModel.FK__Compra__VueloId__5165187F" ManuallyRouted="false" />
         <AssociationConnector Association="VVuelosModel.FK__Tarjeta__CompraI__5812160E" ManuallyRouted="false" />
-        <AssociationConnector Association="VVuelosModel.FK__Origen__Consecut__440B1D61" ManuallyRouted="false" />
-        <AssociationConnector Association="VVuelosModel.FK__PuertaAer__Conse__45F365D3" ManuallyRouted="false" />
-        <AssociationConnector Association="VVuelosModel.FK__Reserva__Consecu__47DBAE45" ManuallyRouted="false" />
-        <AssociationConnector Association="VVuelosModel.FK__Vuelo__OrigenId__52593CB8" ManuallyRouted="false" />
-        <AssociationConnector Association="VVuelosModel.FK__PuertaAct__Puert__4E88ABD4" ManuallyRouted="false" />
-        <AssociationConnector Association="VVuelosModel.FK__Vuelo__PuertaAer__534D60F1" ManuallyRouted="false" />
-        <AssociationConnector Association="VVuelosModel.FK__Reserva__UserId__59063A47" ManuallyRouted="false" />
-        <AssociationConnector Association="VVuelosModel.FK__Reserva__VueloId__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="VVuelosModel.FK__Origen__Consecut__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="VVuelosModel.FK__PuertaAer__Conse__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="VVuelosModel.FK__Reserva__Consecu__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="VVuelosModel.FK__Vuelo__OrigenId__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="VVuelosModel.FK__PuertaAct__Puert__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="VVuelosModel.FK__Vuelo__PuertaAer__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="VVuelosModel.FK__Reserva__UserId__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="VVuelosModel.FK__Reserva__VueloId__571DF1D5" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -7,17 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProyectoFinalSW.Models
+namespace ProyectoFinalSW.Modelos
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class PuertaActiva
+    public partial class AerolineaPai
     {
         public string Id { get; set; }
-        public string Estado { get; set; }
-        public string PuertaAeropuertoId { get; set; }
+        public string Pais { get; set; }
+        public string AerolineaId { get; set; }
     
-        public virtual PuertaAeropuerto PuertaAeropuerto { get; set; }
+        public virtual Aerolinea Aerolinea { get; set; }
     }
 }
