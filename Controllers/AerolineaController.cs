@@ -9,12 +9,14 @@ using System.Web.Http.Description;
 using ProyectoFinalSW.Data.Crypt;
 using ProyectoFinalSW.Data.CryptEntities;
 using ProyectoFinalSW.Models;
+using ProyectoFinalSW.Repos;
 
 namespace ProyectoFinalSW.Controllers
 {
     public class AerolineaController : ApiController
     {
-        private VVuelosEntities2 db = new VVuelosEntities2();
+        private readonly VVuelosEntities2 db = new VVuelosEntities2();
+        private readonly ErrorRepository _error = new ErrorRepository();
 
         // GET: api/Aerolinea
         public List<Aerolinea> GetAerolineas()
@@ -29,7 +31,10 @@ namespace ProyectoFinalSW.Controllers
             id = Crypt.Encryptar(id);
             var aerolinea = db.Aerolineas.FirstOrDefault(a => a.Id.Equals(id));
             if (aerolinea == null)
+            {
+                _error.SaveError("No se encuentra la aerolinea", "404");
                 return NotFound();
+            }
             return Ok(AerolineaCrypt.DecryptarAerolinea(aerolinea));
         }
 
@@ -38,9 +43,15 @@ namespace ProyectoFinalSW.Controllers
         public IHttpActionResult PutAerolinea(string id, Aerolinea aerolinea)
         {
             if (!ModelState.IsValid)
+            {
+                _error.SaveError("Formulario Invalido", "400");
                 return BadRequest(ModelState);
+            }
             if (id != aerolinea.Id)
+            {
+                _error.SaveError("Id diferente en parametros", "400");
                 return BadRequest();
+            }
             aerolinea = AerolineaCrypt.EncryptarAerolinea(aerolinea);
             db.Entry(aerolinea).State = EntityState.Modified;
             try
@@ -62,7 +73,10 @@ namespace ProyectoFinalSW.Controllers
         public IHttpActionResult PostAerolinea(Aerolinea aerolinea)
         {
             if (!ModelState.IsValid)
+            {
+                _error.SaveError("Formulario Invalido", "400");
                 return BadRequest(ModelState);
+            }
             var consecutivo = db.Consecutivoes.FirstOrDefault(c => c.Entidad.Equals(Constants.AerolineaCode));
             aerolinea.Id = Crypt.Decryptar(consecutivo.Id);
             db.Aerolineas.Add(AerolineaCrypt.EncryptarAerolinea(aerolinea));
@@ -78,7 +92,10 @@ namespace ProyectoFinalSW.Controllers
             id = Crypt.Encryptar(id);
             var aerolinea = db.Aerolineas.Find(id);
             if (aerolinea == null)
+            {
+                _error.SaveError("No se encuentra la aerolinea", "404");
                 return NotFound();
+            }
             db.Aerolineas.Remove(aerolinea);
             db.SaveChanges();
             return Ok(AerolineaCrypt.DecryptarAerolinea(aerolinea));

@@ -167,6 +167,7 @@
     <Compile Include="Controllers\CompraController.cs" />
     <Compile Include="Controllers\ConsecutivoController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\OrigenController.cs" />
     <Compile Include="Controllers\PuertaAeropuertoController.cs" />
     <Compile Include="Controllers\ReservaController.cs" />
@@ -246,6 +247,11 @@
       <DependentUpon>VVuelosEntityV3.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repos\BitacoraRepository.cs" />
+    <Compile Include="Repos\ErrorRepository.cs" />
+    <Compile Include="Repos\MainInterface.cs" />
+    <Compile Include="Repos\TarjetaRepository.cs" />
+    <Compile Include="Repos\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

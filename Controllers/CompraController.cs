@@ -31,9 +31,7 @@ namespace ProyectoFinalSW.Controllers
             id = Crypt.Encryptar(id);
             var compra = db.Compras.Find(id);
             if (compra == null)
-            {
                 return NotFound();
-            }
 
             return Ok(CompraCrypt.DecryptarCompra(compra));
         }

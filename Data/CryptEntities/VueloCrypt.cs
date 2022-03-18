@@ -40,4 +40,33 @@ namespace ProyectoFinalSW.Data.CryptEntities
             return list;
         }
     }
+    public class JoinVuelo
+    {
+        public string Id { get; set; }
+        public string Descripcion { get; set; }
+        public string Aerolinea { get; set; }
+        public string Origen { get; set; }
+        public string PuertaAeropuerto { get; set; }
+
+        public static JoinVuelo DecryptarVuelo(JoinVuelo vuelo)
+        {
+            return new JoinVuelo
+            {
+                Id = Crypt.Crypt.Decryptar(vuelo.Id),
+                Descripcion = Crypt.Crypt.Decryptar(vuelo.Descripcion),
+                Aerolinea = Crypt.Crypt.Decryptar(vuelo.Aerolinea),
+                Origen = Crypt.Crypt.Decryptar(vuelo.Origen),
+                PuertaAeropuerto = Crypt.Crypt.Decryptar(vuelo.PuertaAeropuerto)
+            };
+        }
+        public static List<JoinVuelo> DecryptarVuelos(List<JoinVuelo> vuelos)
+        {
+            var list = new List<JoinVuelo>();
+            foreach (var vuelo in vuelos)
+            {
+                list.Add(DecryptarVuelo(vuelo));
+            }
+            return list;
+        }
+    }
 }

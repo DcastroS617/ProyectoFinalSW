@@ -20,4 +20,5 @@ namespace ProyectoFinalSW.Data.Crypt
             return new UnicodeEncoding().GetString(Convert.FromBase64String(cypherText));
         }
     }
+    
 }
