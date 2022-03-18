@@ -16,7 +16,7 @@ namespace ProyectoFinalSW.Models
     {
         public string Id { get; set; }
         public string Usuario { get; set; }
-        public System.DateTime Fecha { get; set; }
+        public string Fecha { get; set; }
         public string Codigo { get; set; }
         public string Tipo { get; set; }
         public string Descripcion { get; set; }

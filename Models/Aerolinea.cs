@@ -24,11 +24,9 @@ namespace ProyectoFinalSW.Models
         public string Id { get; set; }
         public string Nombre { get; set; }
         public string Logo { get; set; }
-        public int ConsecutivoId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AerolineaPai> AerolineaPais { get; set; }
-        public virtual Consecutivo Consecutivo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Vuelo> Vueloes { get; set; }
     }

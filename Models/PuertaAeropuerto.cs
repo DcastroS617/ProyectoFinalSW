@@ -24,9 +24,7 @@ namespace ProyectoFinalSW.Models
         public string Id { get; set; }
         public string Numero { get; set; }
         public string Descripcion { get; set; }
-        public int ConsecutivoId { get; set; }
     
-        public virtual Consecutivo Consecutivo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PuertaActiva> PuertaActivas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

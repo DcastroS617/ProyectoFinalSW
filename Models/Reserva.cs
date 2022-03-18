@@ -16,11 +16,9 @@ namespace ProyectoFinalSW.Models
     {
         public string Id { get; set; }
         public string Descripcion { get; set; }
-        public int ConsecutivoId { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public string VueloId { get; set; }
     
-        public virtual Consecutivo Consecutivo { get; set; }
         public virtual User User { get; set; }
         public virtual Vuelo Vuelo { get; set; }
     }

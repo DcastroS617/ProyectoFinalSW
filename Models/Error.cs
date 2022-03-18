@@ -16,7 +16,7 @@ namespace ProyectoFinalSW.Models
     {
         public string Id { get; set; }
         public string Mensaje { get; set; }
-        public System.DateTime Fecha { get; set; }
+        public string Fecha { get; set; }
         public string NumeroError { get; set; }
     }
 }

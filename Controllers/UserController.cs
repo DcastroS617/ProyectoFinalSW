@@ -7,13 +7,14 @@ using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ProyectoFinalSW.Data.Crypt;
+using ProyectoFinalSW.Data.CryptEntities;
 using ProyectoFinalSW.Models;
 
 namespace ProyectoFinalSW.Controllers
 {
     public class UserController : ApiController
     {
-        private VVuelosEntities db = new VVuelosEntities();
+        private VVuelosEntities2 db = new VVuelosEntities2();
 
         // GET: api/User
         public List<User> GetUsers()
@@ -23,9 +24,10 @@ namespace ProyectoFinalSW.Controllers
 
         // GET: api/User/5
         [ResponseType(typeof(User))]
-        public IHttpActionResult GetUser(int id)
+        public IHttpActionResult GetUser(string id)
         {
-            User user = db.Users.Find(id);
+            id = Crypt.Encryptar(id);
+            var user = db.Users.Find(id);
             if (user == null)
                 return NotFound();
             return Ok(UserCrypt.DecryptarUser(user));
@@ -33,7 +35,7 @@ namespace ProyectoFinalSW.Controllers
 
         // PUT: api/User/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUser(int id, User user)
+        public IHttpActionResult PutUser(string id, User user)
         {
             //error handling
             if (!ModelState.IsValid)
@@ -72,9 +74,10 @@ namespace ProyectoFinalSW.Controllers
 
         // DELETE: api/User/5
         [ResponseType(typeof(User))]
-        public IHttpActionResult DeleteUser(int id)
+        public IHttpActionResult DeleteUser(string id)
         {
-            User user = db.Users.Find(id);
+            id = Crypt.Encryptar(id);
+            var user = db.Users.Find(id);
             if (user == null)
             {
                 return NotFound();
@@ -95,7 +98,7 @@ namespace ProyectoFinalSW.Controllers
             base.Dispose(disposing);
         }
 
-        private bool UserExists(int id)
+        private bool UserExists(string id)
         {
             return db.Users.Count(e => e.Id == id) > 0;
         }
