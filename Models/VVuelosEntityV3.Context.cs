@@ -13,10 +13,10 @@ namespace ProyectoFinalSW.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class VVuelosEntity : DbContext
+    public partial class VVuelosEntities2 : DbContext
     {
-        public VVuelosEntity()
-            : base("name=VVuelosEntity")
+        public VVuelosEntities2()
+            : base("name=VVuelosEntities2")
         {
         }
     
@@ -39,6 +39,5 @@ namespace ProyectoFinalSW.Models
         public virtual DbSet<Tarjeta> Tarjetas { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Vuelo> Vueloes { get; set; }
-        public virtual DbSet<Conscutivo2> Conscutivo2 { get; set; }
     }
 }

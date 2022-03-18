@@ -1,10 +1,11 @@
-﻿using ProyectoFinalSW.Models;
+﻿using ProyectoFinalSW.Data.Crypt;
+using ProyectoFinalSW.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ProyectoFinalSW.Data.Crypt
+namespace ProyectoFinalSW.Data.CryptEntities
 {
     public class UserCrypt
     {
@@ -12,26 +13,22 @@ namespace ProyectoFinalSW.Data.Crypt
         {
             return new ProyectoFinalSW.Models.User
             {
-                Id = user.Id,
-                Username = Crypt.Encryptar(Constants.AESKey,user.Username),
-                Contrasena = Crypt.Encryptar(Constants.AESKey, user.Contrasena),
-                Email = Crypt.Encryptar(Constants.AESKey, user.Email),               
-                Role = Crypt.Encryptar(Constants.AESKey, user.Role),
-                Compras = user.Compras,
-                Reservas = user.Reservas
+                Id = Crypt.Crypt.Encryptar(user.Id),
+                Username = Crypt.Crypt.Encryptar(user.Username),
+                Contrasena = Crypt.Crypt.Encryptar(user.Contrasena),
+                Email = Crypt.Crypt.Encryptar(user.Email),               
+                Role = Crypt.Crypt.Encryptar(user.Role)
             };
         }
         public static User DecryptarUser(User user)
         {
             return new ProyectoFinalSW.Models.User
             {
-                Id = user.Id,
-                Username = Crypt.Decryptar(Constants.AESKey, user.Username),
-                Contrasena = Crypt.Decryptar(Constants.AESKey, user.Contrasena),
-                Email = Crypt.Decryptar(Constants.AESKey, user.Email),
-                Role = Crypt.Decryptar(Constants.AESKey, user.Role),
-                Compras = user.Compras,
-                Reservas = user.Reservas
+                Id = Crypt.Crypt.Decryptar(user.Id),
+                Username = Crypt.Crypt.Decryptar(user.Username),
+                Contrasena = Crypt.Crypt.Decryptar(user.Contrasena),
+                Email = Crypt.Crypt.Decryptar(user.Email),
+                Role = Crypt.Crypt.Decryptar(user.Role)
             };
         }
         public static List<User> DecryptarUsers(List<User> users)
@@ -45,3 +42,16 @@ namespace ProyectoFinalSW.Data.Crypt
         }
     }
 }
+
+/*
+  return new ProyectoFinalSW.Models.User
+            {
+                Id = Crypt.Crypt.Encryptar(Constants.AESKey, user.Id),
+                Username = Crypt.Crypt.Decryptar(Constants.AESKey, user.Username),
+                Contrasena = Crypt.Crypt.Decryptar(Constants.AESKey, user.Contrasena),
+                Email = Crypt.Crypt.Decryptar(Constants.AESKey, user.Email),
+                Role = Crypt.Crypt.Decryptar(Constants.AESKey, user.Role),
+                Compras = user.Compras,
+                Reservas = user.Reservas
+            };
+ */

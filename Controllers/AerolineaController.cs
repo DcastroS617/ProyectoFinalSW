@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
+using ProyectoFinalSW.Data.Crypt;
 using ProyectoFinalSW.Data.CryptEntities;
 using ProyectoFinalSW.Models;
 
@@ -13,7 +14,7 @@ namespace ProyectoFinalSW.Controllers
 {
     public class AerolineaController : ApiController
     {
-        private VVuelosEntity db = new VVuelosEntity();
+        private VVuelosEntities2 db = new VVuelosEntities2();
 
         // GET: api/Aerolinea
         public List<Aerolinea> GetAerolineas()
@@ -25,7 +26,8 @@ namespace ProyectoFinalSW.Controllers
         [ResponseType(typeof(Aerolinea))]
         public IHttpActionResult GetAerolinea(string id)
         {
-            var aerolinea = db.Aerolineas.Find(id);
+            id = Crypt.Encryptar(id);
+            var aerolinea = db.Aerolineas.FirstOrDefault(a => a.Id.Equals(id));
             if (aerolinea == null)
                 return NotFound();
             return Ok(AerolineaCrypt.DecryptarAerolinea(aerolinea));
@@ -61,7 +63,10 @@ namespace ProyectoFinalSW.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+            var consecutivo = db.Consecutivoes.FirstOrDefault(c => c.Entidad.Equals(Constants.AerolineaCode));
+            aerolinea.Id = Crypt.Decryptar(consecutivo.Id);
             db.Aerolineas.Add(AerolineaCrypt.EncryptarAerolinea(aerolinea));
+            db.Consecutivoes.Remove(consecutivo);
             db.SaveChanges();
             return CreatedAtRoute("DefaultApi", new { aerolinea.Id }, aerolinea);
         }
@@ -70,7 +75,8 @@ namespace ProyectoFinalSW.Controllers
         [ResponseType(typeof(Aerolinea))]
         public IHttpActionResult DeleteAerolinea(string id)
         {
-            Aerolinea aerolinea = db.Aerolineas.Find(id);
+            id = Crypt.Encryptar(id);
+            var aerolinea = db.Aerolineas.Find(id);
             if (aerolinea == null)
                 return NotFound();
             db.Aerolineas.Remove(aerolinea);

@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
+﻿
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using System.Web.Http.Description;
+using ProyectoFinalSW.Data.Crypt;
 using ProyectoFinalSW.Data.CryptEntities;
 using ProyectoFinalSW.Models;
 
@@ -11,52 +13,53 @@ namespace ProyectoFinalSW.Controllers
 {
     public class ConsecutivoController : ApiController
     {
-        private VVuelosEntity db = new VVuelosEntity();
+        private VVuelosEntities2 db = new VVuelosEntities2();
 
+        //GET api/Cons
         public List<Consecutivo> Get()
         {
             return ConsecutivoCrypt.DecryptarConsecutivos(db.Consecutivoes.ToList());
         }
 
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult Get(string id)
         {
-            var result = ConsecutivoCrypt.DecryptarConsecutivo(db.Consecutivoes.Find(id));
-            if(result == null) return NotFound();
-            return Ok(result);
+            var list = ConsecutivoCrypt.DecryptarConsecutivos(db.Consecutivoes.ToList());
+            var found = list.FirstOrDefault(c => c.Id.Equals(id));
+            if (found == null) return NotFound();
+            return Ok(found);
         }
 
-        public IHttpActionResult Post([FromBody] Consecutivo consecutivo)
+        //POST: api/Cons
+        [ResponseType(typeof(Consecutivo))]
+        public IHttpActionResult Post([FromBody] ConsecutivoTransaction consecutivo)
         {
-            if(!ModelState.IsValid) return BadRequest(ModelState);
-            db.Consecutivoes.Add(ConsecutivoCrypt.EncryptConsecutivo(consecutivo));
-            db.SaveChanges();
-            return CreatedAtRoute("DefaultApi", new {consecutivo.Id}, consecutivo);
-        }
-
-        public IHttpActionResult Put(int id, [FromBody] Consecutivo consecutivo)
-        {
-            if(!ModelState.IsValid) return BadRequest();
-            if(id != consecutivo.Id) return BadRequest();
-            consecutivo = ConsecutivoCrypt.EncryptConsecutivo(consecutivo);
-            db.Entry(consecutivo).State = EntityState.Modified;
-            try
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+            for(int i = consecutivo.RangoInicial; i < consecutivo.RangoFinal + 1; i++)
             {
-                db.SaveChanges();
-            }catch (DbUpdateConcurrencyException)
-            {
-                if (!FindConsecutivo(id))
-                    return NotFound();
-                else
-                    throw;
+                db.Consecutivoes.Add(ConsecutivoCrypt.EncryptarConsecutivo(new Consecutivo
+                {
+                    Id = consecutivo.Prefijo + i.ToString(),
+                    Prefijo = consecutivo.Prefijo,
+                    Numero = i.ToString(),
+                    Estado = consecutivo.Estado.ToString(),
+                    Entidad = consecutivo.Entidad,
+                }));
             }
-            return StatusCode(HttpStatusCode.NoContent);
+            db.SaveChanges();
+            return CreatedAtRoute("DefaultApi", new { consecutivo.RangoFinal }, consecutivo);
         }
 
-        public IHttpActionResult Delete(int id)
+        // DELETE: api/Cons?prefijo=AE
+        [ResponseType(typeof(Consecutivo))]
+        public IHttpActionResult Delete(string prefijo)
         {
-            var consecutivo = db.Consecutivoes.Find(id);
-            if (consecutivo == null) return NotFound();
-            db.Consecutivoes.Remove(consecutivo);
+            //var listCon = ConsecutivoCrypt.DecryptarConsecutivos(db.Consecutivoes.ToList());
+            prefijo = Crypt.Encryptar(prefijo.ToUpper());
+            var consecutivos = db.Consecutivoes.Where(c => c.Prefijo.Contains(prefijo)).ToList();
+            if (!consecutivos.Any()) return NotFound();
+            foreach(var con in consecutivos)
+                db.Consecutivoes.Remove(con);
             db.SaveChanges();
             return StatusCode(HttpStatusCode.NoContent);
         }
@@ -69,6 +72,13 @@ namespace ProyectoFinalSW.Controllers
             }
             base.Dispose(disposing);
         }
-        private bool FindConsecutivo(int id) => db.Users.Count(e => e.Id == id) > 0;
+    }
+    public class ConsecutivoTransaction
+    {
+        public int RangoInicial { get; set; }
+        public int RangoFinal { get; set; }
+        public string Prefijo { get; set; }
+        public bool Estado { get; set; }
+        public string Entidad { get; set; }
     }
 }

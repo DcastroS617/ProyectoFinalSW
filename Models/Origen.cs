@@ -24,9 +24,7 @@ namespace ProyectoFinalSW.Models
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public string Bandera { get; set; }
-        public int ConsecutivoId { get; set; }
     
-        public virtual Consecutivo Consecutivo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Vuelo> Vueloes { get; set; }
     }

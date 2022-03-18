@@ -164,77 +164,86 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AerolineaController.cs" />
-    <Compile Include="Controllers\ConsController.cs" />
+    <Compile Include="Controllers\CompraController.cs" />
     <Compile Include="Controllers\ConsecutivoController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\OrigenController.cs" />
+    <Compile Include="Controllers\PuertaAeropuertoController.cs" />
+    <Compile Include="Controllers\ReservaController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Data\CryptEntities\AerolineaCrypt.cs" />
+    <Compile Include="Data\CryptEntities\BitacoraCrypt.cs" />
+    <Compile Include="Data\CryptEntities\CompraCrypt.cs" />
     <Compile Include="Data\CryptEntities\ConsecutivoCrypt.cs" />
+    <Compile Include="Data\CryptEntities\ErrorCrypt.cs" />
+    <Compile Include="Data\CryptEntities\OrigenCrypt.cs" />
+    <Compile Include="Data\CryptEntities\PuertaAeropuertoCrypt.cs" />
+    <Compile Include="Data\CryptEntities\ReservaCrypt.cs" />
+    <Compile Include="Data\CryptEntities\TarjetaCrypt.cs" />
     <Compile Include="Data\CryptEntities\UserCrypt.cs" />
+    <Compile Include="Controllers\VueloController.cs" />
+    <Compile Include="Data\CryptEntities\VueloCrypt.cs" />
     <Compile Include="Data\Crypt\Constants.cs" />
     <Compile Include="Data\Crypt\Crypt.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Aerolinea.cs">
-      <DependentUpon>VuelosEntities.tt</DependentUpon>
+      <DependentUpon>VVuelosEntityV3.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AerolineaPai.cs">
-      <DependentUpon>VuelosEntities.tt</DependentUpon>
+      <DependentUpon>VVuelosEntityV3.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Bitacora.cs">
-      <DependentUpon>VuelosEntities.tt</DependentUpon>
+      <DependentUpon>VVuelosEntityV3.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Compra.cs">
-      <DependentUpon>VuelosEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Conscutivo2.cs">
-      <DependentUpon>VuelosEntities.tt</DependentUpon>
+      <DependentUpon>VVuelosEntityV3.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Consecutivo.cs">
-      <DependentUpon>VuelosEntities.tt</DependentUpon>
+      <DependentUpon>VVuelosEntityV3.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Error.cs">
-      <DependentUpon>VuelosEntities.tt</DependentUpon>
+      <DependentUpon>VVuelosEntityV3.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Origen.cs">
-      <DependentUpon>VuelosEntities.tt</DependentUpon>
+      <DependentUpon>VVuelosEntityV3.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PuertaActiva.cs">
-      <DependentUpon>VuelosEntities.tt</DependentUpon>
+      <DependentUpon>VVuelosEntityV3.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PuertaAeropuerto.cs">
-      <DependentUpon>VuelosEntities.tt</DependentUpon>
+      <DependentUpon>VVuelosEntityV3.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Reserva.cs">
-      <DependentUpon>VuelosEntities.tt</DependentUpon>
+      <DependentUpon>VVuelosEntityV3.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>VuelosEntities.tt</DependentUpon>
+      <DependentUpon>VVuelosEntityV3.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tarjeta.cs">
-      <DependentUpon>VuelosEntities.tt</DependentUpon>
+      <DependentUpon>VVuelosEntityV3.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>VuelosEntities.tt</DependentUpon>
+      <DependentUpon>VVuelosEntityV3.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Vuelo.cs">
-      <DependentUpon>VuelosEntities.tt</DependentUpon>
+      <DependentUpon>VVuelosEntityV3.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VuelosEntities.Context.cs">
+    <Compile Include="Models\VVuelosEntityV3.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VuelosEntities.Context.tt</DependentUpon>
+      <DependentUpon>VVuelosEntityV3.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VuelosEntities.cs">
+    <Compile Include="Models\VVuelosEntityV3.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VuelosEntities.tt</DependentUpon>
+      <DependentUpon>VVuelosEntityV3.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VuelosEntities.Designer.cs">
+    <Compile Include="Models\VVuelosEntityV3.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VuelosEntities.edmx</DependentUpon>
+      <DependentUpon>VVuelosEntityV3.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -247,15 +256,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\VuelosEntities.Context.tt">
+    <Content Include="Models\VVuelosEntityV3.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>VuelosEntities.edmx</DependentUpon>
-      <LastGenOutput>VuelosEntities.Context.cs</LastGenOutput>
+      <DependentUpon>VVuelosEntityV3.edmx</DependentUpon>
+      <LastGenOutput>VVuelosEntityV3.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\VuelosEntities.tt">
+    <Content Include="Models\VVuelosEntityV3.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>VuelosEntities.edmx</DependentUpon>
-      <LastGenOutput>VuelosEntities.cs</LastGenOutput>
+      <DependentUpon>VVuelosEntityV3.edmx</DependentUpon>
+      <LastGenOutput>VVuelosEntityV3.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -278,12 +287,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\VuelosEntities.edmx">
+    <EntityDeploy Include="Models\VVuelosEntityV3.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>VuelosEntities.Designer.cs</LastGenOutput>
+      <LastGenOutput>VVuelosEntityV3.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\VuelosEntities.edmx.diagram">
-      <DependentUpon>VuelosEntities.edmx</DependentUpon>
+    <Content Include="Models\VVuelosEntityV3.edmx.diagram">
+      <DependentUpon>VVuelosEntityV3.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -305,21 +314,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Default\Index.cshtml" />
-    <Content Include="Views\Aerolinea\Create.cshtml" />
-    <Content Include="Views\Aerolinea\Delete.cshtml" />
-    <Content Include="Views\Aerolinea\Details.cshtml" />
-    <Content Include="Views\Aerolinea\Edit.cshtml" />
-    <Content Include="Views\Aerolinea\Index.cshtml" />
-    <Content Include="Views\Consecutivo\Create.cshtml" />
-    <Content Include="Views\Consecutivo\Delete.cshtml" />
-    <Content Include="Views\Consecutivo\Details.cshtml" />
-    <Content Include="Views\Consecutivo\Edit.cshtml" />
-    <Content Include="Views\Consecutivo\Index.cshtml" />
-    <Content Include="Views\Cons\Create.cshtml" />
-    <Content Include="Views\Cons\Delete.cshtml" />
-    <Content Include="Views\Cons\Details.cshtml" />
-    <Content Include="Views\Cons\Edit.cshtml" />
-    <Content Include="Views\Cons\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
