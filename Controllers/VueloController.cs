@@ -8,12 +8,15 @@ using System.Web.Http;
 using ProyectoFinalSW.Data.Crypt;
 using ProyectoFinalSW.Data.CryptEntities;
 using ProyectoFinalSW.Models;
+using ProyectoFinalSW.Repos;
 
 namespace ProyectoFinalSW.Controllers
 {
     public class VueloController : ApiController
     {
-        private VVuelosEntities2 db = new VVuelosEntities2();
+        private readonly ProyectoFinalSW_dbEntities1 db = new ProyectoFinalSW_dbEntities1();
+        private readonly ErrorRepository _error = new ErrorRepository();
+        private readonly BitacoraRepository _bitacora = new BitacoraRepository();
 
         public List<JoinVuelo> GetVuelos([FromUri]string aerolineaQuery = null, [FromUri]string origenQuery = null)
         {
@@ -31,6 +34,7 @@ namespace ProyectoFinalSW.Controllers
                                   Descripcion = vuelo.Descripcion,
                                   Aerolinea = aerolinea.Nombre,
                                   Origen = origen.Nombre,
+                                  Provincia = origen.Descripcion,
                                   PuertaAeropuerto = puerta.Numero
                               }).ToList();
             joinVuelos = JoinVuelo.DecryptarVuelos(joinVuelos);
@@ -45,27 +49,59 @@ namespace ProyectoFinalSW.Controllers
         }
         public IHttpActionResult PostVuelo([FromBody] Vuelo vuelo)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid) 
+            {
+                _error.SaveError("formulario invalido en vuelos", "400");
+                return BadRequest(ModelState);
+            }
             var consecutivo = db.Consecutivoes.FirstOrDefault(c => c.Entidad.Equals(Constants.VueloCode));
             vuelo.Id = Crypt.Decryptar(consecutivo.Id);
             db.Vueloes.Add(VueloCrypt.EncryptarVuelo(vuelo));
             db.Consecutivoes.Remove(consecutivo);
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!VueloExists(vuelo.Id))
+                {
+                    _error.SaveError("colision de id's en vuelos", "409");
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            _bitacora.SaveBitacora(vuelo.Id, "crear", "se inserto un nuevo vuelo", vuelo.Id);
+            _bitacora.SaveBitacora(consecutivo.Id, "eliminar", "se utilizo y deshecho el consecutivo", consecutivo.Id);
             return CreatedAtRoute("DefaultApi", new { vuelo.Id }, vuelo);
-        }     
-        //crear joins que nos den un reflejo del vuelo y no los ID's de las entidades!!
+        }
 
         public IHttpActionResult GetVuelo(string id)
         {
             id = Crypt.Encryptar(id);
             var vuelo = db.Vueloes.FirstOrDefault(v => v.Id.Equals(id));
-            if (vuelo == null) return NotFound();
+            if (vuelo == null) 
+            {
+                _error.SaveError("no se encontro el vuelo", "404");
+                return NotFound();
+            }
             return Ok(VueloCrypt.DecryptarVuelo(vuelo));
         }
         public IHttpActionResult PutVuelo(string id, Vuelo vuelo)
         {
-            if(!ModelState.IsValid) return BadRequest();
-            if(id != vuelo.Id) return BadRequest();
+            if(!ModelState.IsValid)
+            {
+                _error.SaveError("formulario invalido en vuelos", "400");
+                return BadRequest();
+            }
+            if(id != vuelo.Id)
+            {
+                _error.SaveError("id's diferentes en vuelos", "400");
+                return BadRequest();
+            }
 
             vuelo = VueloCrypt.EncryptarVuelo(vuelo);
             db.Entry(vuelo).State = EntityState.Modified;
@@ -75,11 +111,15 @@ namespace ProyectoFinalSW.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (VueloExists(vuelo.Id))
-                    return NotFound();
+                if (!VueloExists(vuelo.Id))
+                {
+                    _error.SaveError("colision de id's vuelos", "409");
+                    return Conflict();
+                }
                 else
                     throw;
             }
+            _bitacora.SaveBitacora(id, "modificar", "se modifico un vuelo", id);
             return StatusCode(HttpStatusCode.NoContent);
         }
 
@@ -87,9 +127,14 @@ namespace ProyectoFinalSW.Controllers
         {
             id = Crypt.Encryptar(id);
             var vuelo = db.Vueloes.FirstOrDefault(v => v.Id.Equals(id));
-            if(vuelo == null) return NotFound();
+            if(vuelo == null) 
+            {
+                _error.SaveError("no se encontro el vuelo", "404");
+                return NotFound();
+            }
             db.Vueloes.Remove(vuelo);
             db.SaveChanges();
+            _bitacora.SaveBitacora(id, "eliminar", "se elimino un vuelo", id);
             return StatusCode(HttpStatusCode.NoContent);
         }
 
