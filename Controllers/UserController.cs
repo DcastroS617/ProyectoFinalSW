@@ -9,12 +9,15 @@ using System.Web.Http.Description;
 using ProyectoFinalSW.Data.Crypt;
 using ProyectoFinalSW.Data.CryptEntities;
 using ProyectoFinalSW.Models;
+using ProyectoFinalSW.Repos;
 
 namespace ProyectoFinalSW.Controllers
 {
     public class UserController : ApiController
     {
-        private VVuelosEntities2 db = new VVuelosEntities2();
+        private ProyectoFinalSW_dbEntities1 db = new ProyectoFinalSW_dbEntities1();
+        private readonly ErrorRepository _error = new ErrorRepository();
+        private readonly BitacoraRepository _bitacora = new BitacoraRepository();
 
         // GET: api/User
         public List<User> GetUsers()
@@ -29,7 +32,10 @@ namespace ProyectoFinalSW.Controllers
             id = Crypt.Encryptar(id);
             var user = db.Users.Find(id);
             if (user == null)
+            {
+                _error.SaveError("no se encontro el usuario", "404");
                 return NotFound();
+            }
             return Ok(UserCrypt.DecryptarUser(user));
         }
 
@@ -39,10 +45,16 @@ namespace ProyectoFinalSW.Controllers
         {
             //error handling
             if (!ModelState.IsValid)
+            {
+                _error.SaveError("formulario invalido en usuarios", "400");
                 return BadRequest(ModelState);
+            }
 
             if (id != user.Id)
+            {
+                _error.SaveError("id's invalidos en usuarios", "400");
                 return BadRequest();
+            }
 
             //action
             user = UserCrypt.EncryptarUser(user);
@@ -54,10 +66,14 @@ namespace ProyectoFinalSW.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 if (!UserExists(id))
+                {
+                    _error.SaveError("Colision de id's en usuarios", "404");
                     return NotFound();
+                }
                 else
                     throw;
             }
+            _bitacora.SaveBitacora(id, "modificar", "se modifico un usuario", id);
             return StatusCode(HttpStatusCode.NoContent);
         }
 
@@ -66,9 +82,28 @@ namespace ProyectoFinalSW.Controllers
         public IHttpActionResult PostUser(User user)
         {
             if (!ModelState.IsValid)
+            {
+                _error.SaveError("formulario invalido en usuarios", "400");
                 return BadRequest(ModelState);
+            }
             db.Users.Add(UserCrypt.EncryptarUser(user));
-            db.SaveChanges();           
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (UserExists(user.Id))
+                {
+                    _error.SaveError("Colision de id's en usuarios", "404");
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }      
+            _bitacora.SaveBitacora(user.Id, "insertar", "se inserto un nuevo usuario", user.Id);
             return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
         }
 
@@ -80,15 +115,30 @@ namespace ProyectoFinalSW.Controllers
             var user = db.Users.Find(id);
             if (user == null)
             {
+                _error.SaveError("no se encontro el usuario", "404");
                 return NotFound();
             }
 
             db.Users.Remove(user);
             db.SaveChanges();
-
+            _bitacora.SaveBitacora(id, "eliminar", "se elimino un usuario", id);
             return Ok(user);
         }
 
+        [Route("api/user/login")]
+        [HttpPost]
+        public IHttpActionResult Login([FromBody]Login login)
+        {
+            var repo = new UserRepository();
+            login = Data.CryptEntities.Login.EncryptarLogin(login);
+            var validar =  repo.Login(login);
+            if (!validar)
+            {
+                _error.SaveError("login invalido", "400");
+                return BadRequest();
+            }
+            return Ok();
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

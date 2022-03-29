@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="663a4c18601e4b98b47020570e7d5b3d" Name="Diagram1">
+        <EntityTypeShape EntityType="ProyectoFinalSW_dbModel.Aerolinea" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinalSW_dbModel.AerolineaPai" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinalSW_dbModel.Bitacora" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinalSW_dbModel.Compra" Width="1.5" PointX="8.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinalSW_dbModel.Consecutivo" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinalSW_dbModel.Error" Width="1.5" PointX="8.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinalSW_dbModel.Origen" Width="1.5" PointX="3.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinalSW_dbModel.PuertaActiva" Width="1.5" PointX="6" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinalSW_dbModel.PuertaAeropuerto" Width="1.5" PointX="3.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinalSW_dbModel.Reserva" Width="1.5" PointX="8.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinalSW_dbModel.Tarjeta" Width="1.5" PointX="10.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinalSW_dbModel.User" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinalSW_dbModel.Vuelo" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
+        <AssociationConnector Association="ProyectoFinalSW_dbModel.FK__Aerolinea__Aerol__73BA3083" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinalSW_dbModel.FK__Vuelo__Aerolinea__7A672E12" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinalSW_dbModel.FK__Compra__UserId__74AE54BC" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinalSW_dbModel.FK__Compra__VueloId__75A278F5" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinalSW_dbModel.FK__Tarjeta__CompraI__797309D9" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinalSW_dbModel.FK__Vuelo__OrigenId__7B5B524B" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinalSW_dbModel.FK__PuertaAct__Puert__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinalSW_dbModel.FK__Vuelo__PuertaAer__7C4F7684" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinalSW_dbModel.FK__Reserva__UserId__778AC167" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinalSW_dbModel.FK__Reserva__VueloId__787EE5A0" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

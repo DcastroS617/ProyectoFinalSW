@@ -46,6 +46,7 @@ namespace ProyectoFinalSW.Data.CryptEntities
         public string Descripcion { get; set; }
         public string Aerolinea { get; set; }
         public string Origen { get; set; }
+        public string Provincia { get; set; }
         public string PuertaAeropuerto { get; set; }
 
         public static JoinVuelo DecryptarVuelo(JoinVuelo vuelo)
@@ -56,6 +57,7 @@ namespace ProyectoFinalSW.Data.CryptEntities
                 Descripcion = Crypt.Crypt.Decryptar(vuelo.Descripcion),
                 Aerolinea = Crypt.Crypt.Decryptar(vuelo.Aerolinea),
                 Origen = Crypt.Crypt.Decryptar(vuelo.Origen),
+                Provincia = Crypt.Crypt.Decryptar(vuelo.Provincia),
                 PuertaAeropuerto = Crypt.Crypt.Decryptar(vuelo.PuertaAeropuerto)
             };
         }

@@ -17,7 +17,7 @@ namespace ProyectoFinalSW.Repos
     }
     public class ErrorRepository : IErrorRepository
     {
-        private readonly VVuelosEntities2 _context = new VVuelosEntities2();
+        private readonly ProyectoFinalSW_dbEntities1 _context = new ProyectoFinalSW_dbEntities1();
         
 
         public List<Error> GetAllErrors()

@@ -15,7 +15,7 @@ namespace ProyectoFinalSW.Data.CryptEntities
         {
             return new Bitacora
             {
-                Id = Crypt.Crypt.Encryptar(bitacora.Id),
+                Id = Crypt.Crypt.Encryptar(CreateId()),
                 Usuario = Crypt.Crypt.Encryptar(bitacora.Usuario),
                 Fecha = Crypt.Crypt.Encryptar(bitacora.Fecha),
                 Codigo = Crypt.Crypt.Encryptar(bitacora.Codigo),
@@ -34,7 +34,7 @@ namespace ProyectoFinalSW.Data.CryptEntities
                 Codigo = Crypt.Crypt.Decryptar(bitacora.Codigo),
                 Tipo = Crypt.Crypt.Decryptar(bitacora.Tipo),
                 Descripcion = Crypt.Crypt.Decryptar(bitacora.Descripcion),
-                Dato = Crypt.Crypt.Decryptar(bitacora.Dato),
+                Dato = Crypt.Crypt.Decryptar(bitacora.Dato)
             };
         }
         public static List<Bitacora> DecryptarBitacoras(List<Bitacora> bitacoras)

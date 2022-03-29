@@ -11,7 +11,7 @@ namespace ProyectoFinalSW.Controllers
 {
     public class ErrorController : ApiController
     {
-        VVuelosEntities2 db = new VVuelosEntities2();
+        private ProyectoFinalSW_dbEntities1 db = new ProyectoFinalSW_dbEntities1();
         public List<Error> GetErrors() => ErrorCrypt.DecryptarErrores(db.Errors.ToList());
     }
 }

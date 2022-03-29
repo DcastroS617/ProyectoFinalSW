@@ -8,15 +8,19 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Newtonsoft.Json;
 using ProyectoFinalSW.Data.Crypt;
 using ProyectoFinalSW.Data.CryptEntities;
 using ProyectoFinalSW.Models;
+using ProyectoFinalSW.Repos;
 
 namespace ProyectoFinalSW.Controllers
 {
     public class CompraController : ApiController
     {
-        private VVuelosEntities2 db = new VVuelosEntities2();
+        private readonly ProyectoFinalSW_dbEntities1 db = new ProyectoFinalSW_dbEntities1();
+        private readonly ErrorRepository _error = new ErrorRepository();
+        private readonly BitacoraRepository _bitacora = new BitacoraRepository();
 
         // GET: api/Compra
         public List<Compra> GetCompras()
@@ -31,7 +35,10 @@ namespace ProyectoFinalSW.Controllers
             id = Crypt.Encryptar(id);
             var compra = db.Compras.Find(id);
             if (compra == null)
+            {
+                _error.SaveError("compra no encontrada", "404");
                 return NotFound();
+            }
 
             return Ok(CompraCrypt.DecryptarCompra(compra));
         }
@@ -41,10 +48,16 @@ namespace ProyectoFinalSW.Controllers
         public IHttpActionResult PutCompra(string id, Compra compra)
         {
             if (!ModelState.IsValid)
+            {
+                _error.SaveError("formulario invalido en compras", "400");
                 return BadRequest(ModelState);
+            }
 
             if (id != compra.Id)
+            {
+                _error.SaveError("id diferente", "400");
                 return BadRequest();
+            }
 
             compra = CompraCrypt.EncryptarCompra(compra);
             db.Entry(compra).State = EntityState.Modified;
@@ -57,6 +70,7 @@ namespace ProyectoFinalSW.Controllers
             {
                 if (!CompraExists(id))
                 {
+                    _error.SaveError("colision de id's en compras", "404");
                     return NotFound();
                 }
                 else
@@ -65,6 +79,7 @@ namespace ProyectoFinalSW.Controllers
                 }
             }
 
+            _bitacora.SaveBitacora(compra.Id, "modificacion", "modificacion de orden de compra", compra.Id);
             return StatusCode(HttpStatusCode.NoContent);
         }
 
@@ -73,7 +88,10 @@ namespace ProyectoFinalSW.Controllers
         public IHttpActionResult PostCompra(Compra compra)
         {
             if (!ModelState.IsValid)
+            {
+                _error.SaveError("formulario invalido en compras", "400");
                 return BadRequest(ModelState);
+            }
 
             var consecutivo = db.Consecutivoes.FirstOrDefault(c => c.Entidad.Equals(Constants.CompraCode));
             compra.Id = Crypt.Decryptar(consecutivo.Id);
@@ -83,14 +101,20 @@ namespace ProyectoFinalSW.Controllers
             {
                 db.SaveChanges();
             }
-            catch (DbUpdateException)
+            catch (DbUpdateConcurrencyException)
             {
-                if (CompraExists(compra.Id))
+                if (!CompraExists(compra.Id))
+                {
+                    _error.SaveError("colision de id's en compras", "404");
                     return Conflict();
+                }
                 else
+                {
                     throw;
+                }
             }
-
+            _bitacora.SaveBitacora(compra.Id, "crear", "se inserto una nueva compra", compra.Id);
+            _bitacora.SaveBitacora(consecutivo.Id, "eliminar", "se utilizo y deshecho un consecutivo", consecutivo.Id);
             return CreatedAtRoute("DefaultApi", new { id = compra.Id }, compra);
         }
 
@@ -102,12 +126,13 @@ namespace ProyectoFinalSW.Controllers
             var compra = db.Compras.Find(id);
             if (compra == null)
             {
+                _error.SaveError("no se encontro la compra", "404");
                 return NotFound();
             }
 
             db.Compras.Remove(compra);
             db.SaveChanges();
-
+            _bitacora.SaveBitacora(id, "eliminar", "se elimino una compra", compra.Id);
             return Ok(compra);
         }
 

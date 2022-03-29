@@ -10,13 +10,13 @@ namespace ProyectoFinalSW.Repos
 {
     public interface IBitacoraRepository : MainInterface
     {
-        void SaveBitacora(Bitacora bitacora);
+        void SaveBitacora(string codigo, string tipo, string descripcion, string dato);
         Bitacora GetBitacora(string id);
         List<Bitacora> GetAllBitacoras();
     }
     public class BitacoraRepository : IBitacoraRepository
     {
-        private readonly VVuelosEntities2 _context = new VVuelosEntities2();
+        private readonly ProyectoFinalSW_dbEntities1 _context = new ProyectoFinalSW_dbEntities1();
 
         public List<Bitacora> GetAllBitacoras()
         {
@@ -31,9 +31,18 @@ namespace ProyectoFinalSW.Repos
             return BitacoraCrypt.DecryptarBitacora(bitacora);
         }
 
-        public void SaveBitacora(Bitacora bitacora)
+        public void SaveBitacora(string codigo, string tipo, string descripcion, string dato)
         {
-            if(bitacora == null) throw null;
+            var bitacora = new Bitacora
+            {
+                Id = "",
+                Usuario = "test",
+                Fecha = DateTime.Now.ToString(),
+                Codigo = codigo,
+                Tipo = tipo,
+                Descripcion = descripcion,
+                Dato = dato
+            };
             _context.Bitacoras.Add(BitacoraCrypt.EncryptarBitacora(bitacora));
             _context.SaveChanges();
         }

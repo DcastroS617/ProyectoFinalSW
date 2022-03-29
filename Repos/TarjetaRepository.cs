@@ -9,7 +9,7 @@ namespace ProyectoFinalSW.Repos
 {
     public class TarjetaRepository : MainInterface
     {
-        VVuelosEntities2 _context = new VVuelosEntities2();
+        private ProyectoFinalSW_dbEntities1 _context = new ProyectoFinalSW_dbEntities1();
         public bool ValidateId(string id)
         {
             id = Crypt.Encryptar(id);
