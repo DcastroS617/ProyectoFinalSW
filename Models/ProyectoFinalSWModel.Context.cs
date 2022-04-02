@@ -13,10 +13,10 @@ namespace ProyectoFinalSW.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ProyectoFinalSW_dbEntities1 : DbContext
+    public partial class ProyectoFinalSW_dbEntities : DbContext
     {
-        public ProyectoFinalSW_dbEntities1()
-            : base("name=ProyectoFinalSW_dbEntities1")
+        public ProyectoFinalSW_dbEntities()
+            : base("name=ProyectoFinalSW_dbEntities")
         {
         }
     

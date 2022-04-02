@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Newtonsoft.Json;
@@ -16,7 +17,7 @@ namespace ProyectoFinalSW.Controllers
 {
     public class AerolineaController : ApiController
     {
-        private readonly ProyectoFinalSW_dbEntities1 db = new ProyectoFinalSW_dbEntities1();
+        private readonly ProyectoFinalSW_dbEntities db = new ProyectoFinalSW_dbEntities();
         private readonly ErrorRepository _error = new ErrorRepository();
         private readonly BitacoraRepository _bitacora = new BitacoraRepository();
 
@@ -73,20 +74,26 @@ namespace ProyectoFinalSW.Controllers
 
         // POST: api/Aerolinea
         [ResponseType(typeof(Aerolinea))]
-        public IHttpActionResult PostAerolinea(Aerolinea aerolinea)
+        public async Task<IHttpActionResult> PostAerolinea(Aerolinea aerolinea)
         {
+            var ConsecutivoRepo = new ConsecutivoRepository();
             if (!ModelState.IsValid)
             {
                 _error.SaveError("Formulario Invalido en aerolineas", "400");
                 return BadRequest(ModelState);
             }
             var consecutivo = db.Consecutivoes.FirstOrDefault(c => c.Entidad.Equals(Constants.AerolineaCode));
+            if (consecutivo == null)
+            {
+                await ConsecutivoRepo.CreateConsecutivo("AL01", "Aerolineas");
+                consecutivo = db.Consecutivoes.FirstOrDefault(c => c.Entidad.Equals(Constants.AerolineaCode));
+            }
             aerolinea.Id = Crypt.Decryptar(consecutivo.Id);
             db.Aerolineas.Add(AerolineaCrypt.EncryptarAerolinea(aerolinea));
             db.Consecutivoes.Remove(consecutivo);
             try
             {
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {

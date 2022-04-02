@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Newtonsoft.Json;
@@ -18,9 +19,10 @@ namespace ProyectoFinalSW.Controllers
 {
     public class OrigenController : ApiController
     {
-        private ProyectoFinalSW_dbEntities1 db = new ProyectoFinalSW_dbEntities1();
+        private ProyectoFinalSW_dbEntities db = new ProyectoFinalSW_dbEntities();
         private readonly ErrorRepository _error = new ErrorRepository();
         private readonly BitacoraRepository _bitacora = new BitacoraRepository();
+        private readonly ConsecutivoRepository _consecutivo = new ConsecutivoRepository();
 
         // GET: api/Origen
         public List<Origen> GetOrigens()
@@ -78,7 +80,7 @@ namespace ProyectoFinalSW.Controllers
 
         // POST: api/Origen
         [ResponseType(typeof(Origen))]
-        public IHttpActionResult PostOrigen(Origen origen)
+        public async Task<IHttpActionResult> PostOrigen(Origen origen)
         {
             if (!ModelState.IsValid)
             {
@@ -86,12 +88,17 @@ namespace ProyectoFinalSW.Controllers
                 return BadRequest(ModelState);
             }
             var consecutivo = db.Consecutivoes.FirstOrDefault(o => o.Entidad.Equals(Constants.OrigenCode));
+            if(consecutivo == null)
+            {
+                await _consecutivo.CreateConsecutivo("OR01", "Pais destino");
+                consecutivo = db.Consecutivoes.FirstOrDefault(o => o.Entidad.Equals(Constants.OrigenCode));
+            }
             origen.Id = Crypt.Decryptar(consecutivo.Id);
             db.Origens.Add(OrigenCrypt.EncryptarOrigen(origen));
             db.Consecutivoes.Remove(consecutivo);
             try
             {
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {

@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Newtonsoft.Json;
@@ -18,9 +19,10 @@ namespace ProyectoFinalSW.Controllers
 {
     public class CompraController : ApiController
     {
-        private readonly ProyectoFinalSW_dbEntities1 db = new ProyectoFinalSW_dbEntities1();
+        private readonly ProyectoFinalSW_dbEntities db = new ProyectoFinalSW_dbEntities();
         private readonly ErrorRepository _error = new ErrorRepository();
         private readonly BitacoraRepository _bitacora = new BitacoraRepository();
+        private readonly ConsecutivoRepository _consecutivo = new ConsecutivoRepository();
 
         // GET: api/Compra
         public List<Compra> GetCompras()
@@ -85,7 +87,7 @@ namespace ProyectoFinalSW.Controllers
 
         // POST: api/Compra
         [ResponseType(typeof(Compra))]
-        public IHttpActionResult PostCompra(Compra compra)
+        public async Task<IHttpActionResult> PostCompra(Compra compra)
         {
             if (!ModelState.IsValid)
             {
@@ -94,18 +96,23 @@ namespace ProyectoFinalSW.Controllers
             }
 
             var consecutivo = db.Consecutivoes.FirstOrDefault(c => c.Entidad.Equals(Constants.CompraCode));
+            if(consecutivo == null)
+            {
+                await _consecutivo.CreateConsecutivo("CM01", "Compras de boletos");
+                consecutivo = db.Consecutivoes.FirstOrDefault(c => c.Entidad.Equals(Constants.CompraCode));
+            }
             compra.Id = Crypt.Decryptar(consecutivo.Id);
             db.Compras.Add(CompraCrypt.EncryptarCompra(compra));
             db.Consecutivoes.Remove(consecutivo);
             try
             {
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
                 if (!CompraExists(compra.Id))
                 {
-                    _error.SaveError("colision de id's en compras", "404");
+                    _error.SaveError("colision de id's en compras", "409");
                     return Conflict();
                 }
                 else

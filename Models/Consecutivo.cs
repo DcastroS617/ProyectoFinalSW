@@ -15,9 +15,7 @@ namespace ProyectoFinalSW.Models
     public partial class Consecutivo
     {
         public string Id { get; set; }
-        public string Prefijo { get; set; }
-        public string Numero { get; set; }
-        public string Estado { get; set; }
         public string Entidad { get; set; }
+        public string Descripcion { get; set; }
     }
 }

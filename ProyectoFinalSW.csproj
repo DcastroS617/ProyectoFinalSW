@@ -197,61 +197,62 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Aerolinea.cs">
-      <DependentUpon>VueloEntitiesModel.tt</DependentUpon>
+      <DependentUpon>ProyectoFinalSWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AerolineaPai.cs">
-      <DependentUpon>VueloEntitiesModel.tt</DependentUpon>
+      <DependentUpon>ProyectoFinalSWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Bitacora.cs">
-      <DependentUpon>VueloEntitiesModel.tt</DependentUpon>
+      <DependentUpon>ProyectoFinalSWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Compra.cs">
-      <DependentUpon>VueloEntitiesModel.tt</DependentUpon>
+      <DependentUpon>ProyectoFinalSWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Consecutivo.cs">
-      <DependentUpon>VueloEntitiesModel.tt</DependentUpon>
+      <DependentUpon>ProyectoFinalSWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Error.cs">
-      <DependentUpon>VueloEntitiesModel.tt</DependentUpon>
+      <DependentUpon>ProyectoFinalSWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Origen.cs">
-      <DependentUpon>VueloEntitiesModel.tt</DependentUpon>
+      <DependentUpon>ProyectoFinalSWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProyectoFinalSWModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProyectoFinalSWModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProyectoFinalSWModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProyectoFinalSWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProyectoFinalSWModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProyectoFinalSWModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\PuertaActiva.cs">
-      <DependentUpon>VueloEntitiesModel.tt</DependentUpon>
+      <DependentUpon>ProyectoFinalSWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PuertaAeropuerto.cs">
-      <DependentUpon>VueloEntitiesModel.tt</DependentUpon>
+      <DependentUpon>ProyectoFinalSWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Reserva.cs">
-      <DependentUpon>VueloEntitiesModel.tt</DependentUpon>
+      <DependentUpon>ProyectoFinalSWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tarjeta.cs">
-      <DependentUpon>VueloEntitiesModel.tt</DependentUpon>
+      <DependentUpon>ProyectoFinalSWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>VueloEntitiesModel.tt</DependentUpon>
+      <DependentUpon>ProyectoFinalSWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Vuelo.cs">
-      <DependentUpon>VueloEntitiesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VueloEntitiesModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>VueloEntitiesModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VueloEntitiesModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>VueloEntitiesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VueloEntitiesModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>VueloEntitiesModel.edmx</DependentUpon>
+      <DependentUpon>ProyectoFinalSWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repos\BitacoraRepository.cs" />
+    <Compile Include="Repos\ConsecutivoRepository.cs" />
     <Compile Include="Repos\ErrorRepository.cs" />
     <Compile Include="Repos\MainInterface.cs" />
     <Compile Include="Repos\TarjetaRepository.cs" />
@@ -266,15 +267,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\VueloEntitiesModel.Context.tt">
+    <Content Include="Models\ProyectoFinalSWModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>VueloEntitiesModel.edmx</DependentUpon>
-      <LastGenOutput>VueloEntitiesModel.Context.cs</LastGenOutput>
+      <DependentUpon>ProyectoFinalSWModel.edmx</DependentUpon>
+      <LastGenOutput>ProyectoFinalSWModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\VueloEntitiesModel.tt">
+    <Content Include="Models\ProyectoFinalSWModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>VueloEntitiesModel.edmx</DependentUpon>
-      <LastGenOutput>VueloEntitiesModel.cs</LastGenOutput>
+      <DependentUpon>ProyectoFinalSWModel.edmx</DependentUpon>
+      <LastGenOutput>ProyectoFinalSWModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -297,12 +298,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\VueloEntitiesModel.edmx">
+    <EntityDeploy Include="Models\ProyectoFinalSWModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>VueloEntitiesModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>ProyectoFinalSWModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\VueloEntitiesModel.edmx.diagram">
-      <DependentUpon>VueloEntitiesModel.edmx</DependentUpon>
+    <Content Include="Models\ProyectoFinalSWModel.edmx.diagram">
+      <DependentUpon>ProyectoFinalSWModel.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\ProyectoFinalSW - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
