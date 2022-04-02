@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ProyectoFinalSW.Data.Crypt;
@@ -17,9 +18,10 @@ namespace ProyectoFinalSW.Controllers
 {
     public class PuertaAeropuertoController : ApiController
     {
-        private ProyectoFinalSW_dbEntities1 db = new ProyectoFinalSW_dbEntities1();
+        private ProyectoFinalSW_dbEntities db = new ProyectoFinalSW_dbEntities();
         private readonly ErrorRepository _error = new ErrorRepository();
         private readonly BitacoraRepository _bitacora = new BitacoraRepository();
+        private readonly ConsecutivoRepository _consecutivo = new ConsecutivoRepository();
 
         // GET: api/PuertaAeropuerto
         public List<PuertaAeropuerto> GetPuertasAeropuerto()
@@ -82,7 +84,7 @@ namespace ProyectoFinalSW.Controllers
 
         // POST: api/PuertaAeropuerto
         [ResponseType(typeof(PuertaAeropuerto))]
-        public IHttpActionResult PostPuertaAeropuerto(PuertaAeropuerto puertaAeropuerto)
+        public async Task<IHttpActionResult> PostPuertaAeropuerto(PuertaAeropuerto puertaAeropuerto)
         {
             if (!ModelState.IsValid)
             {
@@ -90,13 +92,17 @@ namespace ProyectoFinalSW.Controllers
                 return BadRequest(ModelState);
             }
             var consecutivo = db.Consecutivoes.FirstOrDefault(c => c.Entidad.Equals(Constants.PuertaCode));
-
+            if(consecutivo == null)
+            {
+                await _consecutivo.CreateConsecutivo("PA01", "Puertas del aeropuerto");
+                consecutivo = db.Consecutivoes.FirstOrDefault(c => c.Entidad.Equals(Constants.PuertaCode));
+            }
             puertaAeropuerto.Id = Crypt.Decryptar( consecutivo.Id);
             db.PuertaAeropuertoes.Add(PuertaAeropuertoCrypt.EncryptPuertaAeropuerto(puertaAeropuerto));
             db.Consecutivoes.Remove(consecutivo);
             try
             {
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {

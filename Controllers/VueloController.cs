@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
 using ProyectoFinalSW.Data.Crypt;
 using ProyectoFinalSW.Data.CryptEntities;
@@ -14,9 +15,10 @@ namespace ProyectoFinalSW.Controllers
 {
     public class VueloController : ApiController
     {
-        private readonly ProyectoFinalSW_dbEntities1 db = new ProyectoFinalSW_dbEntities1();
+        private readonly ProyectoFinalSW_dbEntities db = new ProyectoFinalSW_dbEntities();
         private readonly ErrorRepository _error = new ErrorRepository();
         private readonly BitacoraRepository _bitacora = new BitacoraRepository();
+        private readonly ConsecutivoRepository _consecutivo = new ConsecutivoRepository();
 
         public List<JoinVuelo> GetVuelos([FromUri]string aerolineaQuery = null, [FromUri]string origenQuery = null)
         {
@@ -47,7 +49,7 @@ namespace ProyectoFinalSW.Controllers
 
             return joinVuelos;
         }
-        public IHttpActionResult PostVuelo([FromBody] Vuelo vuelo)
+        public async Task<IHttpActionResult> PostVuelo([FromBody] Vuelo vuelo)
         {
             if (!ModelState.IsValid) 
             {
@@ -55,12 +57,17 @@ namespace ProyectoFinalSW.Controllers
                 return BadRequest(ModelState);
             }
             var consecutivo = db.Consecutivoes.FirstOrDefault(c => c.Entidad.Equals(Constants.VueloCode));
+            if(consecutivo == null)
+            {
+                await _consecutivo.CreateConsecutivo("VL01", "Vuelos disponibles");
+                consecutivo = db.Consecutivoes.FirstOrDefault(c => c.Entidad.Equals(Constants.VueloCode));
+            }
             vuelo.Id = Crypt.Decryptar(consecutivo.Id);
             db.Vueloes.Add(VueloCrypt.EncryptarVuelo(vuelo));
             db.Consecutivoes.Remove(consecutivo);
             try
             {
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {

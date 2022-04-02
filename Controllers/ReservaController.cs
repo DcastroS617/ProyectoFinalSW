@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ProyectoFinalSW.Data.Crypt;
@@ -17,9 +18,10 @@ namespace ProyectoFinalSW.Controllers
 {
     public class ReservaController : ApiController
     {
-        private ProyectoFinalSW_dbEntities1 db = new ProyectoFinalSW_dbEntities1(); 
+        private ProyectoFinalSW_dbEntities db = new ProyectoFinalSW_dbEntities(); 
         private readonly ErrorRepository _error = new ErrorRepository();
         private readonly BitacoraRepository _bitacora = new BitacoraRepository();
+        private readonly ConsecutivoRepository _consecutivo = new ConsecutivoRepository();
 
         // GET: api/Reserva
         public List<Reserva> GetReservas()
@@ -80,7 +82,7 @@ namespace ProyectoFinalSW.Controllers
 
         // POST: api/Reserva
         [ResponseType(typeof(Reserva))]
-        public IHttpActionResult PostReserva(Reserva reserva)
+        public async Task<IHttpActionResult> PostReserva(Reserva reserva)
         {
             if (!ModelState.IsValid)
             {
@@ -88,12 +90,17 @@ namespace ProyectoFinalSW.Controllers
                 return BadRequest(ModelState);
             }
             var consecutivo = db.Consecutivoes.FirstOrDefault(r => r.Entidad.Equals(Constants.ReservaCode));
+            if(consecutivo == null)
+            {
+                await _consecutivo.CreateConsecutivo("RS01", "Reserva de boleto");
+                consecutivo = db.Consecutivoes.FirstOrDefault(r => r.Entidad.Equals(Constants.ReservaCode));
+            }
             reserva.Id = Crypt.Decryptar(consecutivo.Id);
             db.Reservas.Add(ReservaCrypt.EncryptarReserva(reserva));
             db.Consecutivoes.Remove(consecutivo);
             try
             {
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {

@@ -16,7 +16,7 @@ namespace ProyectoFinalSW.Repos
     }
     public class BitacoraRepository : IBitacoraRepository
     {
-        private readonly ProyectoFinalSW_dbEntities1 _context = new ProyectoFinalSW_dbEntities1();
+        private readonly ProyectoFinalSW_dbEntities _context = new ProyectoFinalSW_dbEntities();
 
         public List<Bitacora> GetAllBitacoras()
         {

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
@@ -14,7 +16,7 @@ namespace ProyectoFinalSW.Controllers
 {
     public class ConsecutivoController : ApiController
     {
-        private readonly ProyectoFinalSW_dbEntities1 db = new ProyectoFinalSW_dbEntities1();
+        private readonly ProyectoFinalSW_dbEntities db = new ProyectoFinalSW_dbEntities();
         private readonly ErrorRepository _error = new ErrorRepository();
         private readonly BitacoraRepository _bitacora = new BitacoraRepository();
 
@@ -48,9 +50,7 @@ namespace ProyectoFinalSW.Controllers
                 db.Consecutivoes.Add(ConsecutivoCrypt.EncryptarConsecutivo(new Consecutivo
                 {
                     Id = consecutivo.Prefijo + i.ToString(),
-                    Prefijo = consecutivo.Prefijo,
-                    Numero = i.ToString(),
-                    Estado = consecutivo.Estado.ToString(),
+                    Descripcion = consecutivo.Descripcion.ToString(),
                     Entidad = consecutivo.Entidad,
                 }));
             }
@@ -58,13 +58,48 @@ namespace ProyectoFinalSW.Controllers
             _bitacora.SaveBitacora(consecutivo.Entidad, "crear", "se inserto una seguidilla de consecutivos", consecutivo.Entidad);
             return CreatedAtRoute("DefaultApi", new { consecutivo.RangoFinal }, consecutivo);
         }
+        [ResponseType(typeof(void))]
+        public IHttpActionResult Put([FromUri]string prefijo, ConsecutivoTransaction consecutivo)
+        {
+           /* if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var consecutivos = ConsecutivoCrypt.DecryptarConsecutivos(db.Consecutivoes.ToList());
+            var consecutivosFound = consecutivos.Where(c => c.Id.StartsWith(prefijo)).ToList();
+            if (consecutivosFound.Count > consecutivo.RangoFinal)
+            {
+                _error.SaveError("el rango final fue menor al que estaba anteriormente", "400");
+                return BadRequest();
+            }
+            for (int i = consecutivo.RangoInicial; i < consecutivo.RangoFinal + 1; i++)
+            {
+                    db.Consecutivoes.Add(ConsecutivoCrypt.EncryptarConsecutivo(new Consecutivo
+                    {
+                        Id = consecutivo.Prefijo + i.ToString(),
+                        Descripcion = consecutivo.Descripcion.ToString(),
+                        Entidad = consecutivo.Entidad,
+                    }));
+            }
+            foreach(var con in consecutivosFound)
+            {
+                db.Consecutivoes.Remove(ConsecutivoCrypt.EncryptarConsecutivo(con));
+            }
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DBConcurrencyException)
+            {
+                throw;
+            }*/
+            return Ok(consecutivo);
 
+        }
         // DELETE: api/Cons?prefijo=AE
         [ResponseType(typeof(Consecutivo))]
-        public IHttpActionResult Delete([FromUri] string prefijo)
+        public IHttpActionResult Delete([FromUri] string entidad)
         {
             //var listCon = ConsecutivoCrypt.DecryptarConsecutivos(db.Consecutivoes.ToList());
-            prefijo = Crypt.Encryptar(prefijo.ToUpper());
+            /*prefijo = Crypt.Encryptar(prefijo.ToUpper());
             var consecutivos = db.Consecutivoes.Where(c => c.Prefijo.Equals(prefijo)).ToList();
             if (!consecutivos.Any()) 
             {
@@ -74,7 +109,7 @@ namespace ProyectoFinalSW.Controllers
             foreach(var con in consecutivos)
                 db.Consecutivoes.Remove(con);
             db.SaveChanges();
-            _bitacora.SaveBitacora(prefijo, "eliminar", "se elimino una seguidilla de consecutivos", prefijo);
+            _bitacora.SaveBitacora(prefijo, "eliminar", "se elimino una seguidilla de consecutivos", prefijo);*/
             return StatusCode(HttpStatusCode.NoContent);
         }
 
@@ -92,7 +127,13 @@ namespace ProyectoFinalSW.Controllers
         public int RangoInicial { get; set; }
         public int RangoFinal { get; set; }
         public string Prefijo { get; set; }
-        public bool Estado { get; set; }
+        public string Descripcion { get; set; }
         public string Entidad { get; set; }
+
+        public static string CreatePrefijo()
+        {
+
+            return "";
+        }
     }
 }

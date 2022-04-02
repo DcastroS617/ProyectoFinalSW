@@ -14,7 +14,7 @@ namespace ProyectoFinalSW.Controllers
 {
     public class BitacoraController : ApiController
     {
-        private ProyectoFinalSW_dbEntities1 db = new ProyectoFinalSW_dbEntities1();
+        private ProyectoFinalSW_dbEntities db = new ProyectoFinalSW_dbEntities();
         public List<Bitacora> GetBitacoras() => BitacoraCrypt.DecryptarBitacoras(db.Bitacoras.ToList());
     }
 }

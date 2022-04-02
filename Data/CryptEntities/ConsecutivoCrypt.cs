@@ -14,9 +14,7 @@ namespace ProyectoFinalSW.Data.CryptEntities
             return new Consecutivo
             {
                 Id = Crypt.Crypt.Encryptar(consecutivo.Id),
-                Prefijo = Crypt.Crypt.Encryptar(consecutivo.Prefijo),
-                Numero = Crypt.Crypt.Encryptar(consecutivo.Numero),
-                Estado = Crypt.Crypt.Encryptar(consecutivo.Estado),
+                Descripcion = Crypt.Crypt.Encryptar(consecutivo.Descripcion),
                 Entidad = Crypt.Crypt.Encryptar(consecutivo.Entidad)
             };
         }       
@@ -25,9 +23,7 @@ namespace ProyectoFinalSW.Data.CryptEntities
             return new Consecutivo
             {
                 Id = Crypt.Crypt.Decryptar(consecutivo.Id),
-                Prefijo = Crypt.Crypt.Decryptar(consecutivo.Prefijo),
-                Numero = Crypt.Crypt.Decryptar(consecutivo.Numero),
-                Estado = Crypt.Crypt.Decryptar(consecutivo.Estado),
+                Descripcion = Crypt.Crypt.Decryptar(consecutivo.Descripcion),
                 Entidad = Crypt.Crypt.Decryptar(consecutivo.Entidad)
             };
         }

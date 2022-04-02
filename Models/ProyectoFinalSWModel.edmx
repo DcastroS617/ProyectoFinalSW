@@ -47,10 +47,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="varchar" MaxLength="500" Nullable="false" />
-          <Property Name="Prefijo" Type="varchar" MaxLength="750" Nullable="false" />
-          <Property Name="Numero" Type="varchar" MaxLength="750" Nullable="false" />
-          <Property Name="Estado" Type="varchar" MaxLength="750" Nullable="false" />
           <Property Name="Entidad" Type="varchar" MaxLength="750" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="1500" Nullable="false" />
         </EntityType>
         <EntityType Name="Error">
           <Key>
@@ -358,10 +356,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Prefijo" Type="String" MaxLength="750" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Numero" Type="String" MaxLength="750" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Estado" Type="String" MaxLength="750" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Entidad" Type="String" MaxLength="750" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="Error">
           <Key>
@@ -575,7 +571,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ProyectoFinalSW_dbEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ProyectoFinalSW_dbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Aerolineas" EntityType="Self.Aerolinea" />
           <EntitySet Name="AerolineaPais" EntityType="Self.AerolineaPai" />
           <EntitySet Name="Bitacoras" EntityType="Self.Bitacora" />
@@ -635,7 +631,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ProyectoFinalSW_dbModelStoreContainer" CdmEntityContainer="ProyectoFinalSW_dbEntities1">
+        <EntityContainerMapping StorageEntityContainer="ProyectoFinalSW_dbModelStoreContainer" CdmEntityContainer="ProyectoFinalSW_dbEntities">
           <EntitySetMapping Name="Aerolineas">
             <EntityTypeMapping TypeName="ProyectoFinalSW_dbModel.Aerolinea">
               <MappingFragment StoreEntitySet="Aerolinea">
@@ -681,10 +677,8 @@
             <EntityTypeMapping TypeName="ProyectoFinalSW_dbModel.Consecutivo">
               <MappingFragment StoreEntitySet="Consecutivo">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Prefijo" ColumnName="Prefijo" />
-                <ScalarProperty Name="Numero" ColumnName="Numero" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Entidad" ColumnName="Entidad" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
