@@ -12,6 +12,16 @@ namespace ProyectoFinalSW.Controllers
     public class ErrorController : ApiController
     {
         private ProyectoFinalSW_dbEntities db = new ProyectoFinalSW_dbEntities();
-        public List<Error> GetErrors() => ErrorCrypt.DecryptarErrores(db.Errors.ToList());
+        public List<Error> GetErrors(string fecha = null) 
+        {
+            var errors = ErrorCrypt.DecryptarErrores(db.Errors.ToList());
+            if (fecha != null)
+            {
+                var result = errors.Where(e => e.Fecha.Contains(fecha)).ToList();
+                return result;
+            }
+            return errors;
+        }
+
     }
 }
