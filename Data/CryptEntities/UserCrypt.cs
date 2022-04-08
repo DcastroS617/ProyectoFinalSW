@@ -16,6 +16,19 @@ namespace ProyectoFinalSW.Data.CryptEntities
         {
             return new ProyectoFinalSW.Models.User
             {
+                Id = Crypt.Crypt.Encryptar(user.Id),
+                Username = Crypt.Crypt.Encryptar(user.Username),
+                Contrasena = Crypt.Crypt.Encryptar(user.Contrasena),
+                Email = Crypt.Crypt.Encryptar(user.Email),
+                Role = Crypt.Crypt.Encryptar(user.Role),
+                PreguntaSeguridad = Crypt.Crypt.Encryptar(user.PreguntaSeguridad),
+                RespuestaSeguridad = Crypt.Crypt.Encryptar(user.RespuestaSeguridad)
+            };
+        }
+        public static User EncryptarNewUser(User user)
+        {
+            return new ProyectoFinalSW.Models.User
+            {
                 Id = Crypt.Crypt.Encryptar(CreateId()),
                 Username = Crypt.Crypt.Encryptar(user.Username),
                 Contrasena = Crypt.Crypt.Encryptar(user.Contrasena),
@@ -25,7 +38,7 @@ namespace ProyectoFinalSW.Data.CryptEntities
                 RespuestaSeguridad = Crypt.Crypt.Encryptar(user.RespuestaSeguridad)
             };
         }
-        public static User DecryptarUser(User user)
+            public static User DecryptarUser(User user)
         {
             return new ProyectoFinalSW.Models.User
             {

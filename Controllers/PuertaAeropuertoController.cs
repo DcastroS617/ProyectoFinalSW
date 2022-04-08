@@ -18,7 +18,7 @@ namespace ProyectoFinalSW.Controllers
 {
     public class PuertaAeropuertoController : ApiController
     {
-        private ProyectoFinalSW_dbEntities db = new ProyectoFinalSW_dbEntities();
+        private VVuelosEntities db = new VVuelosEntities();
         private readonly ErrorRepository _error = new ErrorRepository();
         private readonly BitacoraRepository _bitacora = new BitacoraRepository();
         private readonly ConsecutivoRepository _consecutivo = new ConsecutivoRepository();

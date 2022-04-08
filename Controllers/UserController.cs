@@ -15,14 +15,20 @@ namespace ProyectoFinalSW.Controllers
 {
     public class UserController : ApiController
     {
-        private ProyectoFinalSW_dbEntities db = new ProyectoFinalSW_dbEntities();
+        private VVuelosEntities db = new VVuelosEntities();
         private readonly ErrorRepository _error = new ErrorRepository();
         private readonly BitacoraRepository _bitacora = new BitacoraRepository();
 
         // GET: api/User
-        public List<User> GetUsers()
+        public List<User> GetUsers(string username = null)
         {
-            return UserCrypt.DecryptarUsers(db.Users.ToList());
+            var users = UserCrypt.DecryptarUsers(db.Users.ToList());
+            if(username != null)
+            {
+                var result = users.Where(u => u.Username == username).ToList();
+                return result;
+            }
+            return users;
         }
 
         // GET: api/User/5
@@ -65,13 +71,14 @@ namespace ProyectoFinalSW.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!UserExists(Crypt.Encryptar(id)))
                 {
-                    _error.SaveError("Colision de id's en usuarios", "404");
                     return NotFound();
                 }
                 else
+                {
                     throw;
+                }
             }
             _bitacora.SaveBitacora(id, "modificar", "se modifico un usuario", id);
             return StatusCode(HttpStatusCode.NoContent);
@@ -79,14 +86,15 @@ namespace ProyectoFinalSW.Controllers
 
         // POST: api/User
         [ResponseType(typeof(User))]
-        public IHttpActionResult PostUser(User user)
+        public IHttpActionResult PostUser([FromBody]User user)
         {
             if (!ModelState.IsValid)
             {
                 _error.SaveError("formulario invalido en usuarios", "400");
                 return BadRequest(ModelState);
             }
-            db.Users.Add(UserCrypt.EncryptarUser(user));
+            user = UserCrypt.EncryptarNewUser(user);
+            db.Users.Add(user);
             try
             {
                 db.SaveChanges();
@@ -132,12 +140,13 @@ namespace ProyectoFinalSW.Controllers
             var repo = new UserRepository();
             login = Data.CryptEntities.Login.EncryptarLogin(login);
             var validar =  repo.Login(login);
+            var user = db.Users.FirstOrDefault(u => u.Username == login.Username && u.Contrasena == login.Contrasena);
             if (!validar)
             {
                 _error.SaveError("login invalido", "400");
                 return BadRequest();
             }
-            return Ok();
+            return Ok(UserCrypt.DecryptarUser(user));
         }
         protected override void Dispose(bool disposing)
         {

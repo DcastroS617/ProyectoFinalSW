@@ -15,12 +15,12 @@ namespace ProyectoFinalSW.Controllers
 {
     public class VueloController : ApiController
     {
-        private readonly ProyectoFinalSW_dbEntities db = new ProyectoFinalSW_dbEntities();
+        private readonly VVuelosEntities db = new VVuelosEntities();
         private readonly ErrorRepository _error = new ErrorRepository();
         private readonly BitacoraRepository _bitacora = new BitacoraRepository();
         private readonly ConsecutivoRepository _consecutivo = new ConsecutivoRepository();
 
-        public List<JoinVuelo> GetVuelos([FromUri]string aerolineaQuery = null, [FromUri]string origenQuery = null)
+        public List<JoinVuelo> GetVuelos([FromUri]string Aerolinea = null, [FromUri]string Origen = null)
         {
             //join para dar la visualizacion real de la tabla de vuelos disponibles
             var joinVuelos = (from vuelo in db.Vueloes 
@@ -41,11 +41,11 @@ namespace ProyectoFinalSW.Controllers
                               }).ToList();
             joinVuelos = JoinVuelo.DecryptarVuelos(joinVuelos);
 
-            if (aerolineaQuery != null)
-                return joinVuelos.Where(v => v.Aerolinea.Contains(aerolineaQuery)).ToList();
+            if (Aerolinea != null)
+                return joinVuelos.Where(v => v.Aerolinea.Contains(Aerolinea.ToLower())).ToList();
 
-            if (origenQuery != null)
-                return joinVuelos.Where(v => v.Origen.Contains(origenQuery)).ToList();           
+            if (Origen != null)
+                return joinVuelos.Where(v => v.Origen.Contains(Origen.ToLower())).ToList();           
 
             return joinVuelos;
         }
