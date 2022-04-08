@@ -12,7 +12,7 @@ namespace ProyectoFinalSW.Repos
 {
     public class ConsecutivoRepository : MainInterface
     {
-        private readonly ProyectoFinalSW_dbEntities _context = new ProyectoFinalSW_dbEntities();
+        private readonly VVuelosEntities _context = new VVuelosEntities();
         private readonly string Caracteres = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
         public bool ValidateId(string id)
         {

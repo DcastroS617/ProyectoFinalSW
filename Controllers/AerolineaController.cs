@@ -17,7 +17,7 @@ namespace ProyectoFinalSW.Controllers
 {
     public class AerolineaController : ApiController
     {
-        private readonly ProyectoFinalSW_dbEntities db = new ProyectoFinalSW_dbEntities();
+        private readonly VVuelosEntities db = new VVuelosEntities();
         private readonly ErrorRepository _error = new ErrorRepository();
         private readonly BitacoraRepository _bitacora = new BitacoraRepository();
 

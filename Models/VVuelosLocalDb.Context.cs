@@ -13,10 +13,10 @@ namespace ProyectoFinalSW.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ProyectoFinalSW_dbEntities : DbContext
+    public partial class VVuelosEntities : DbContext
     {
-        public ProyectoFinalSW_dbEntities()
-            : base("name=ProyectoFinalSW_dbEntities")
+        public VVuelosEntities()
+            : base("name=VVuelosEntities")
         {
         }
     
@@ -35,6 +35,7 @@ namespace ProyectoFinalSW.Models
         public virtual DbSet<PuertaActiva> PuertaActivas { get; set; }
         public virtual DbSet<PuertaAeropuerto> PuertaAeropuertoes { get; set; }
         public virtual DbSet<Reserva> Reservas { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tarjeta> Tarjetas { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Vuelo> Vueloes { get; set; }
