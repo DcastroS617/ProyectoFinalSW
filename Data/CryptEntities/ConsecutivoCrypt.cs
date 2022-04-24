@@ -17,7 +17,16 @@ namespace ProyectoFinalSW.Data.CryptEntities
                 Descripcion = Crypt.Crypt.Encryptar(consecutivo.Descripcion),
                 Entidad = Crypt.Crypt.Encryptar(consecutivo.Entidad)
             };
-        }       
+        }
+        public static List<Consecutivo> EncryptarConsecutivos(List<Consecutivo> consecutivos)
+        {
+            var returnList = new List<Consecutivo>();
+            foreach (var Con in consecutivos)
+            {
+                returnList.Add(EncryptarConsecutivo(Con));
+            }
+            return returnList;
+        }
         public static Consecutivo DecryptarConsecutivo(Consecutivo consecutivo)
         {
             return new Consecutivo

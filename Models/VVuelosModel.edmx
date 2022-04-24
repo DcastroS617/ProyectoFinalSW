@@ -11,15 +11,17 @@
           </Key>
           <Property Name="Id" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="Nombre" Type="varchar(max)" Nullable="false" />
-          <Property Name="Logo" Type="varchar(max)" Nullable="false" />
+          <Property Name="Origen" Type="varchar(max)" />
         </EntityType>
-        <EntityType Name="AerolineaPais">
+        <EntityType Name="AerolineaImages">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="varchar" MaxLength="500" Nullable="false" />
-          <Property Name="Pais" Type="varchar(max)" Nullable="false" />
-          <Property Name="AerolineaId" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Size" Type="varchar(max)" Nullable="false" />
+          <Property Name="ImageData" Type="varbinary(max)" Nullable="false" />
+          <Property Name="AerolineaId" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Bitacora">
           <Key>
@@ -66,7 +68,16 @@
           <Property Name="Id" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="Nombre" Type="varchar(max)" Nullable="false" />
           <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
-          <Property Name="Bandera" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrigenImages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Size" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="ImageData" Type="varbinary(max)" Nullable="false" />
+          <Property Name="OrigenId" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <EntityType Name="PuertaActiva">
           <Key>
@@ -138,18 +149,6 @@
           <Property Name="OrigenId" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="PuertaAeropuertoId" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Aerolinea__Aerol__4E88ABD4">
-          <End Role="Aerolinea" Type="Self.Aerolinea" Multiplicity="1" />
-          <End Role="AerolineaPais" Type="Self.AerolineaPais" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Aerolinea">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AerolineaPais">
-              <PropertyRef Name="AerolineaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Compra__UserId__3B75D760">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
@@ -258,14 +257,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AerolineaImages">
+          <End Role="Aerolinea" Type="Self.Aerolinea" Multiplicity="0..1" />
+          <End Role="AerolineaImages" Type="Self.AerolineaImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aerolinea">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AerolineaImages">
+              <PropertyRef Name="AerolineaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrigenImages">
+          <End Role="Origen" Type="Self.Origen" Multiplicity="1" />
+          <End Role="OrigenImages" Type="Self.OrigenImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Origen">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrigenImages">
+              <PropertyRef Name="OrigenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="VVuelosModelStoreContainer">
           <EntitySet Name="Aerolinea" EntityType="Self.Aerolinea" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AerolineaPais" EntityType="Self.AerolineaPais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AerolineaImages" EntityType="Self.AerolineaImages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bitacora" EntityType="Self.Bitacora" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Compra" EntityType="Self.Compra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Consecutivo" EntityType="Self.Consecutivo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Error" EntityType="Self.Error" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Origen" EntityType="Self.Origen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrigenImages" EntityType="Self.OrigenImages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PuertaActiva" EntityType="Self.PuertaActiva" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PuertaAeropuerto" EntityType="Self.PuertaAeropuerto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reserva" EntityType="Self.Reserva" Schema="dbo" store:Type="Tables" />
@@ -273,10 +297,6 @@
           <EntitySet Name="Tarjeta" EntityType="Self.Tarjeta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vuelo" EntityType="Self.Vuelo" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Aerolinea__Aerol__4E88ABD4" Association="Self.FK__Aerolinea__Aerol__4E88ABD4">
-            <End Role="Aerolinea" EntitySet="Aerolinea" />
-            <End Role="AerolineaPais" EntitySet="AerolineaPais" />
-          </AssociationSet>
           <AssociationSet Name="FK__Compra__UserId__3B75D760" Association="Self.FK__Compra__UserId__3B75D760">
             <End Role="User" EntitySet="User" />
             <End Role="Compra" EntitySet="Compra" />
@@ -313,6 +333,14 @@
             <End Role="PuertaAeropuerto" EntitySet="PuertaAeropuerto" />
             <End Role="Vuelo" EntitySet="Vuelo" />
           </AssociationSet>
+          <AssociationSet Name="FK_AerolineaImages" Association="Self.FK_AerolineaImages">
+            <End Role="Aerolinea" EntitySet="Aerolinea" />
+            <End Role="AerolineaImages" EntitySet="AerolineaImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrigenImages" Association="Self.FK_OrigenImages">
+            <End Role="Origen" EntitySet="Origen" />
+            <End Role="OrigenImages" EntitySet="OrigenImages" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -325,18 +353,20 @@
           </Key>
           <Property Name="Id" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="AerolineaPais" Relationship="Self.FK__Aerolinea__Aerol__4E88ABD4" FromRole="Aerolinea" ToRole="AerolineaPais" />
+          <Property Name="Origen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Vueloes" Relationship="Self.FK__Vuelo__Aerolinea__412EB0B6" FromRole="Aerolinea" ToRole="Vuelo" />
+          <NavigationProperty Name="AerolineaImages" Relationship="Self.FK_AerolineaImages" FromRole="Aerolinea" ToRole="AerolineaImages" />
         </EntityType>
-        <EntityType Name="AerolineaPai">
+        <EntityType Name="AerolineaImage">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Pais" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AerolineaId" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Aerolinea" Relationship="Self.FK__Aerolinea__Aerol__4E88ABD4" FromRole="AerolineaPais" ToRole="Aerolinea" />
+          <Property Name="Name" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Size" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ImageData" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="AerolineaId" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Aerolinea" Relationship="Self.FK_AerolineaImages" FromRole="AerolineaImages" ToRole="Aerolinea" />
         </EntityType>
         <EntityType Name="Bitacora">
           <Key>
@@ -386,8 +416,19 @@
           <Property Name="Id" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Bandera" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Vueloes" Relationship="Self.FK__Vuelo__OrigenId__4222D4EF" FromRole="Origen" ToRole="Vuelo" />
+          <NavigationProperty Name="OrigenImages" Relationship="Self.FK_OrigenImages" FromRole="Origen" ToRole="OrigenImages" />
+        </EntityType>
+        <EntityType Name="OrigenImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Size" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ImageData" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="OrigenId" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Origen" Relationship="Self.FK_OrigenImages" FromRole="OrigenImages" ToRole="Origen" />
         </EntityType>
         <EntityType Name="PuertaActiva">
           <Key>
@@ -472,18 +513,6 @@
           <NavigationProperty Name="PuertaAeropuerto" Relationship="Self.FK__Vuelo__PuertaAer__4316F928" FromRole="Vuelo" ToRole="PuertaAeropuerto" />
           <NavigationProperty Name="Reservas" Relationship="Self.FK__Reserva__VueloId__3F466844" FromRole="Vuelo" ToRole="Reserva" />
         </EntityType>
-        <Association Name="FK__Aerolinea__Aerol__4E88ABD4">
-          <End Role="Aerolinea" Type="Self.Aerolinea" Multiplicity="1" />
-          <End Role="AerolineaPais" Type="Self.AerolineaPai" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Aerolinea">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AerolineaPais">
-              <PropertyRef Name="AerolineaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Vuelo__Aerolinea__412EB0B6">
           <End Role="Aerolinea" Type="Self.Aerolinea" Multiplicity="1" />
           <End Role="Vuelo" Type="Self.Vuelo" Multiplicity="*" />
@@ -492,6 +521,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Vuelo">
+              <PropertyRef Name="AerolineaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AerolineaImages">
+          <End Role="Aerolinea" Type="Self.Aerolinea" Multiplicity="0..1" />
+          <End Role="AerolineaImages" Type="Self.AerolineaImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aerolinea">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AerolineaImages">
               <PropertyRef Name="AerolineaId" />
             </Dependent>
           </ReferentialConstraint>
@@ -540,6 +581,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Vuelo">
+              <PropertyRef Name="OrigenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrigenImages">
+          <End Role="Origen" Type="Self.Origen" Multiplicity="1" />
+          <End Role="OrigenImages" Type="Self.OrigenImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Origen">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrigenImages">
               <PropertyRef Name="OrigenId" />
             </Dependent>
           </ReferentialConstraint>
@@ -594,12 +647,13 @@
         </Association>
         <EntityContainer Name="VVuelosEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Aerolineas" EntityType="Self.Aerolinea" />
-          <EntitySet Name="AerolineaPais" EntityType="Self.AerolineaPai" />
+          <EntitySet Name="AerolineaImages" EntityType="Self.AerolineaImage" />
           <EntitySet Name="Bitacoras" EntityType="Self.Bitacora" />
           <EntitySet Name="Compras" EntityType="Self.Compra" />
           <EntitySet Name="Consecutivoes" EntityType="Self.Consecutivo" />
           <EntitySet Name="Errors" EntityType="Self.Error" />
           <EntitySet Name="Origens" EntityType="Self.Origen" />
+          <EntitySet Name="OrigenImages" EntityType="Self.OrigenImage" />
           <EntitySet Name="PuertaActivas" EntityType="Self.PuertaActiva" />
           <EntitySet Name="PuertaAeropuertoes" EntityType="Self.PuertaAeropuerto" />
           <EntitySet Name="Reservas" EntityType="Self.Reserva" />
@@ -607,13 +661,13 @@
           <EntitySet Name="Tarjetas" EntityType="Self.Tarjeta" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="Vueloes" EntityType="Self.Vuelo" />
-          <AssociationSet Name="FK__Aerolinea__Aerol__4E88ABD4" Association="Self.FK__Aerolinea__Aerol__4E88ABD4">
-            <End Role="Aerolinea" EntitySet="Aerolineas" />
-            <End Role="AerolineaPais" EntitySet="AerolineaPais" />
-          </AssociationSet>
           <AssociationSet Name="FK__Vuelo__Aerolinea__412EB0B6" Association="Self.FK__Vuelo__Aerolinea__412EB0B6">
             <End Role="Aerolinea" EntitySet="Aerolineas" />
             <End Role="Vuelo" EntitySet="Vueloes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AerolineaImages" Association="Self.FK_AerolineaImages">
+            <End Role="Aerolinea" EntitySet="Aerolineas" />
+            <End Role="AerolineaImages" EntitySet="AerolineaImages" />
           </AssociationSet>
           <AssociationSet Name="FK__Compra__UserId__3B75D760" Association="Self.FK__Compra__UserId__3B75D760">
             <End Role="User" EntitySet="Users" />
@@ -630,6 +684,10 @@
           <AssociationSet Name="FK__Vuelo__OrigenId__4222D4EF" Association="Self.FK__Vuelo__OrigenId__4222D4EF">
             <End Role="Origen" EntitySet="Origens" />
             <End Role="Vuelo" EntitySet="Vueloes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrigenImages" Association="Self.FK_OrigenImages">
+            <End Role="Origen" EntitySet="Origens" />
+            <End Role="OrigenImages" EntitySet="OrigenImages" />
           </AssociationSet>
           <AssociationSet Name="FK__PuertaAct__Puert__3D5E1FD2" Association="Self.FK__PuertaAct__Puert__3D5E1FD2">
             <End Role="PuertaAeropuerto" EntitySet="PuertaAeropuertoes" />
@@ -659,15 +717,17 @@
               <MappingFragment StoreEntitySet="Aerolinea">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Origen" ColumnName="Origen" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AerolineaPais">
-            <EntityTypeMapping TypeName="VVuelosModel.AerolineaPai">
-              <MappingFragment StoreEntitySet="AerolineaPais">
+          <EntitySetMapping Name="AerolineaImages">
+            <EntityTypeMapping TypeName="VVuelosModel.AerolineaImage">
+              <MappingFragment StoreEntitySet="AerolineaImages">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Pais" ColumnName="Pais" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="ImageData" ColumnName="ImageData" />
                 <ScalarProperty Name="AerolineaId" ColumnName="AerolineaId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -720,7 +780,17 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Bandera" ColumnName="Bandera" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrigenImages">
+            <EntityTypeMapping TypeName="VVuelosModel.OrigenImage">
+              <MappingFragment StoreEntitySet="OrigenImages">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+                <ScalarProperty Name="OrigenId" ColumnName="OrigenId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

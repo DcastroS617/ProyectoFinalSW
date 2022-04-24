@@ -26,12 +26,13 @@ namespace ProyectoFinalSW.Models
         }
     
         public virtual DbSet<Aerolinea> Aerolineas { get; set; }
-        public virtual DbSet<AerolineaPai> AerolineaPais { get; set; }
+        public virtual DbSet<AerolineaImage> AerolineaImages { get; set; }
         public virtual DbSet<Bitacora> Bitacoras { get; set; }
         public virtual DbSet<Compra> Compras { get; set; }
         public virtual DbSet<Consecutivo> Consecutivoes { get; set; }
         public virtual DbSet<Error> Errors { get; set; }
         public virtual DbSet<Origen> Origens { get; set; }
+        public virtual DbSet<OrigenImage> OrigenImages { get; set; }
         public virtual DbSet<PuertaActiva> PuertaActivas { get; set; }
         public virtual DbSet<PuertaAeropuerto> PuertaAeropuertoes { get; set; }
         public virtual DbSet<Reserva> Reservas { get; set; }

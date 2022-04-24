@@ -12,10 +12,12 @@ namespace ProyectoFinalSW.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AerolineaPai
+    public partial class AerolineaImage
     {
         public string Id { get; set; }
-        public string Pais { get; set; }
+        public string Name { get; set; }
+        public string Size { get; set; }
+        public byte[] ImageData { get; set; }
         public string AerolineaId { get; set; }
     
         public virtual Aerolinea Aerolinea { get; set; }

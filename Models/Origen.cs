@@ -18,14 +18,16 @@ namespace ProyectoFinalSW.Models
         public Origen()
         {
             this.Vueloes = new HashSet<Vuelo>();
+            this.OrigenImages = new HashSet<OrigenImage>();
         }
     
         public string Id { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
-        public string Bandera { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Vuelo> Vueloes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrigenImage> OrigenImages { get; set; }
     }
 }
