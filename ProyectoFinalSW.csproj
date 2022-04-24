@@ -197,67 +197,72 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Aerolinea.cs">
-      <DependentUpon>VVuelosLocalDb.tt</DependentUpon>
+      <DependentUpon>VVuelosModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AerolineaPai.cs">
-      <DependentUpon>VVuelosLocalDb.tt</DependentUpon>
+    <Compile Include="Models\AerolineaImage.cs">
+      <DependentUpon>VVuelosModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Bitacora.cs">
-      <DependentUpon>VVuelosLocalDb.tt</DependentUpon>
+      <DependentUpon>VVuelosModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Compra.cs">
-      <DependentUpon>VVuelosLocalDb.tt</DependentUpon>
+      <DependentUpon>VVuelosModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Consecutivo.cs">
-      <DependentUpon>VVuelosLocalDb.tt</DependentUpon>
+      <DependentUpon>VVuelosModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Error.cs">
-      <DependentUpon>VVuelosLocalDb.tt</DependentUpon>
+      <DependentUpon>VVuelosModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Origen.cs">
-      <DependentUpon>VVuelosLocalDb.tt</DependentUpon>
+      <DependentUpon>VVuelosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrigenImage.cs">
+      <DependentUpon>VVuelosModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PuertaActiva.cs">
-      <DependentUpon>VVuelosLocalDb.tt</DependentUpon>
+      <DependentUpon>VVuelosModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PuertaAeropuerto.cs">
-      <DependentUpon>VVuelosLocalDb.tt</DependentUpon>
+      <DependentUpon>VVuelosModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Reserva.cs">
-      <DependentUpon>VVuelosLocalDb.tt</DependentUpon>
+      <DependentUpon>VVuelosModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>VVuelosLocalDb.tt</DependentUpon>
+      <DependentUpon>VVuelosModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tarjeta.cs">
-      <DependentUpon>VVuelosLocalDb.tt</DependentUpon>
+      <DependentUpon>VVuelosModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>VVuelosLocalDb.tt</DependentUpon>
+      <DependentUpon>VVuelosModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Vuelo.cs">
-      <DependentUpon>VVuelosLocalDb.tt</DependentUpon>
+      <DependentUpon>VVuelosModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VVuelosLocalDb.Context.cs">
+    <Compile Include="Models\VVuelosModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VVuelosLocalDb.Context.tt</DependentUpon>
+      <DependentUpon>VVuelosModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VVuelosLocalDb.cs">
+    <Compile Include="Models\VVuelosModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VVuelosLocalDb.tt</DependentUpon>
+      <DependentUpon>VVuelosModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VVuelosLocalDb.Designer.cs">
+    <Compile Include="Models\VVuelosModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VVuelosLocalDb.edmx</DependentUpon>
+      <DependentUpon>VVuelosModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repos\AerolineaRepository.cs" />
     <Compile Include="Repos\BitacoraRepository.cs" />
     <Compile Include="Repos\ConsecutivoRepository.cs" />
     <Compile Include="Repos\ErrorRepository.cs" />
     <Compile Include="Repos\MainInterface.cs" />
+    <Compile Include="Repos\OrigenRepository.cs" />
     <Compile Include="Repos\TarjetaRepository.cs" />
     <Compile Include="Repos\UserRepository.cs" />
   </ItemGroup>
@@ -270,15 +275,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\VVuelosLocalDb.Context.tt">
+    <Content Include="Models\VVuelosModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>VVuelosLocalDb.edmx</DependentUpon>
-      <LastGenOutput>VVuelosLocalDb.Context.cs</LastGenOutput>
+      <DependentUpon>VVuelosModel.edmx</DependentUpon>
+      <LastGenOutput>VVuelosModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\VVuelosLocalDb.tt">
+    <Content Include="Models\VVuelosModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>VVuelosLocalDb.edmx</DependentUpon>
-      <LastGenOutput>VVuelosLocalDb.cs</LastGenOutput>
+      <DependentUpon>VVuelosModel.edmx</DependentUpon>
+      <LastGenOutput>VVuelosModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -301,13 +306,24 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\VVuelosLocalDb.edmx">
+    <EntityDeploy Include="Models\VVuelosModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>VVuelosLocalDb.Designer.cs</LastGenOutput>
+      <LastGenOutput>VVuelosModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\VVuelosLocalDb.edmx.diagram">
-      <DependentUpon>VVuelosLocalDb.edmx</DependentUpon>
+    <Content Include="Models\VVuelosModel.edmx.diagram">
+      <DependentUpon>VVuelosModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Images\Aerolinea\BodyPart_0dbe70c4-9393-47d9-8185-8880f1a22537" />
+    <Content Include="Images\Aerolinea\BodyPart_18049456-0dd5-4d51-9d23-038ea4fee37c" />
+    <Content Include="Images\Aerolinea\BodyPart_1b713816-ddf1-4dc1-a900-85d2cb865fb8" />
+    <Content Include="Images\Aerolinea\BodyPart_1fddb1b3-7b0b-488f-ab45-e9894d028ab9" />
+    <Content Include="Images\Aerolinea\BodyPart_21ac6f7b-4013-4275-bdfb-1bc86e2f4bfe" />
+    <Content Include="Images\Aerolinea\BodyPart_41645a2c-bf49-42df-ad3c-72c53d20c706" />
+    <Content Include="Images\Aerolinea\BodyPart_5147fc97-8ca4-4177-8cd1-6565174ac98b" />
+    <Content Include="Images\Aerolinea\BodyPart_6bcc67c8-22cc-47c7-bd36-ac446db4ddec" />
+    <Content Include="Images\Aerolinea\BodyPart_8a211b23-7ddd-4dbc-a84b-ccfa1364ceae" />
+    <Content Include="Images\Aerolinea\BodyPart_8ce2aedf-d89b-4faa-99ae-372e9b1fa0e1" />
+    <Content Include="Images\Bandera\BodyPart_1a3dec9c-cbbc-477f-a6b1-ef6704282119" />
     <None Include="Properties\PublishProfiles\ProyectoFinalSW - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

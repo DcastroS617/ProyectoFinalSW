@@ -17,17 +17,17 @@ namespace ProyectoFinalSW.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Aerolinea()
         {
-            this.AerolineaPais = new HashSet<AerolineaPai>();
             this.Vueloes = new HashSet<Vuelo>();
+            this.AerolineaImages = new HashSet<AerolineaImage>();
         }
     
         public string Id { get; set; }
         public string Nombre { get; set; }
-        public string Logo { get; set; }
+        public string Origen { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AerolineaPai> AerolineaPais { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Vuelo> Vueloes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AerolineaImage> AerolineaImages { get; set; }
     }
 }

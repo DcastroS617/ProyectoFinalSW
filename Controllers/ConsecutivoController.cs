@@ -26,6 +26,19 @@ namespace ProyectoFinalSW.Controllers
             return ConsecutivoCrypt.DecryptarConsecutivos(db.Consecutivoes.ToList());
         }
 
+        [HttpGet]
+        [Route("api/consecutivo/analytics")]
+        public IHttpActionResult GetBasicAnalytics()
+        {
+            var consecutivoRepo = new ConsecutivoRepository();
+            var analytics = consecutivoRepo.GetConsecutivoAnalytics();
+            if (!analytics.Any())
+            {
+                return NotFound();
+            }
+            return Ok(analytics);
+        }
+
         public IHttpActionResult Get(string id)
         {
             var list = ConsecutivoCrypt.DecryptarConsecutivos(db.Consecutivoes.ToList());
@@ -42,9 +55,24 @@ namespace ProyectoFinalSW.Controllers
         //POST: api/Cons
         [ResponseType(typeof(Consecutivo))]
         public IHttpActionResult Post([FromBody] ConsecutivoTransaction consecutivo)
-        {
-            if(!ModelState.IsValid)
-                return BadRequest(ModelState);
+        {            
+
+            var consecutivoRepo = new ConsecutivoRepository();
+            if (consecutivo.Prefijo == null || string.IsNullOrEmpty(consecutivo.Prefijo))
+            {
+                consecutivo.Prefijo = consecutivoRepo.CreatePrefijo();
+            }
+
+            if(consecutivo.RangoInicial <= 0)
+            {
+                consecutivo.RangoInicial = 200;
+            }
+
+            if(consecutivo.RangoFinal <= 0)
+            {
+                consecutivo.RangoFinal = 209;
+            }
+
             for(int i = consecutivo.RangoInicial; i < consecutivo.RangoFinal + 1; i++)
             {
                 db.Consecutivoes.Add(ConsecutivoCrypt.EncryptarConsecutivo(new Consecutivo
@@ -54,6 +82,7 @@ namespace ProyectoFinalSW.Controllers
                     Entidad = consecutivo.Entidad,
                 }));
             }
+
             db.SaveChanges();
             _bitacora.SaveBitacora(consecutivo.Entidad, "crear", "se inserto una seguidilla de consecutivos", consecutivo.Entidad);
             return CreatedAtRoute("DefaultApi", new { consecutivo.RangoFinal }, consecutivo);
@@ -96,21 +125,24 @@ namespace ProyectoFinalSW.Controllers
         }
         // DELETE: api/Cons?prefijo=AE
         [ResponseType(typeof(Consecutivo))]
-        public IHttpActionResult Delete([FromUri] string entidad)
+        public IHttpActionResult Delete([FromUri] string prefijo)
         {
-            //var listCon = ConsecutivoCrypt.DecryptarConsecutivos(db.Consecutivoes.ToList());
-            /*prefijo = Crypt.Encryptar(prefijo.ToUpper());
-            var consecutivos = db.Consecutivoes.Where(c => c.Prefijo.Equals(prefijo)).ToList();
+            var listCon = ConsecutivoCrypt.DecryptarConsecutivos(db.Consecutivoes.ToList());
+            prefijo = prefijo.ToUpper();
+            var consecutivos = listCon.Where(c => c.Id.StartsWith(prefijo)).ToList();
             if (!consecutivos.Any()) 
             {
                 _error.SaveError("no se encontro el consecutivo", "404");
                 return NotFound();
             }
-            foreach(var con in consecutivos)
-                db.Consecutivoes.Remove(con);
+            consecutivos = ConsecutivoCrypt.EncryptarConsecutivos(consecutivos);
+
+            db.Consecutivoes.RemoveRange(consecutivos);
             db.SaveChanges();
-            _bitacora.SaveBitacora(prefijo, "eliminar", "se elimino una seguidilla de consecutivos", prefijo);*/
-            return StatusCode(HttpStatusCode.NoContent);
+                       
+            _bitacora.SaveBitacora(prefijo, "eliminar", "se elimino una seguidilla de consecutivos", prefijo);
+            //return StatusCode(HttpStatusCode.NoContent);
+            return Ok(new { consecutivos });
         }
 
         protected override void Dispose(bool disposing)
@@ -129,11 +161,6 @@ namespace ProyectoFinalSW.Controllers
         public string Prefijo { get; set; }
         public string Descripcion { get; set; }
         public string Entidad { get; set; }
-
-        public static string CreatePrefijo()
-        {
-
-            return "";
-        }
     }
+    
 }
